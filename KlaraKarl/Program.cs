@@ -1,13 +1,18 @@
 using KlaraKarl.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddDbContext<KlarakarlDbContext>(options =>
+{
+    options.UseSqlite("Data Source = Klarakarl.db");
+});
+builder.Services.AddScoped<KlarakarlServices>();
 
 var app = builder.Build();
 

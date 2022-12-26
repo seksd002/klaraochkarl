@@ -72,40 +72,50 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
-.item1 {
-    grid-area: bildkarl;
-}
 
-.item2 {
-    grid-area: namnkarl;
-}
 
-.item3 {
-    grid-area: bildklara;
-}
-
-.item4 {
-    grid-area: namnklara;
-}
-
-.item5 {
-    grid-area: datum;
-}
 
 .grid-container {
     display: grid;
-    grid-template-areas:
-        'bildkarl bildkarl bildkarl bildklara bildklara bildklara'
-        'namnkarl namnkarl namnkarl namnklara namnklara namnklara'
-        'datum datum datum datum datum datum';
     gap: 10px;
-    background-color: #2196F3;
     padding: 10px;
 }
 
     .grid-container > div {
-        background-color: rgba(255, 255, 255, 0.8);
         text-align: center;
         padding: 20px 0;
         font-size: 30px;
     }
+.profileimage {
+    border-radius: 50%;
+    border-style: double;
+    border-color: red;
+    border-width: 20px;
+    max-width: 20%;
+    height: auto;
+    
+}
+.profileimagediv {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+ .profileimagediv > * {
+     margin: 40px;
+ }
+.namn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    .namn * {
+        margin: 40px;
+    }
+.datum {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+tr:hover {
+    background-color: lightgray;
+}
