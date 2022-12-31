@@ -11,12 +11,11 @@
     <table class="table table-bordered">
         <thead class="thead-dark">
             <tr>
-                <th>Id</th>
                 <th>Förnamn</th>
                 <th>Efternamn</th>
                 <th>Email</th>
                 <th>Registrerad</th>
-                <th>Ta bort person</th>
+                <th>Registrera</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +27,8 @@
                         <td>@person.Surname</td>
                         <td>@person.Lastname</td>
                         <td>@person.Email</td>
+                        <td>@person.Registred</td>
+
                     </tr>
                 }
             }
@@ -44,10 +45,19 @@
     private async Task GetValidPersonsAsync(String email)
     {
         Persons = await service.GetValidPersonsAsync(email);
+        Console.WriteLine(Persons); 
     }
     private async Task SetPersonForAccept(Person person)
     {
         await service.SetPersonForAccept(person);
     }
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await RefreshPersons();
+    //}
+    //private async Task RefreshPersons()
+    //{
+    //    Persons = await service.GetPersonAsync();
+    //}
 }
 
