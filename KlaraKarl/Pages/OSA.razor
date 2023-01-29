@@ -1,5 +1,6 @@
 ﻿@page "/osa"
 @inject KlarakarlServices service
+@inject NavigationManager NavigationManager; 
 <PageTitle>OSA</PageTitle>
 
 <h1>Svara på inbjudan</h1>
@@ -58,16 +59,13 @@
     </EditForm>*@
     <EditForm Model=@NewPerson OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted>
         <div class="form-group">
-            <label for="SurName">Förnamn</label>
-            <InputText @bind-Value=NewPerson.Surname class="form-control" id="SurName" />
+            <label for="Name">Namn</label>
+            <InputText @bind-Value=NewPerson.Name class="form-control" id="SurName" />
         </div>
-        <div class="form-group">
-            <label for="LastName">Förnamn</label>
-            <InputText @bind-Value=NewPerson.Lastname class="form-control" id="LastName" />
-        </div>
+        
         <div class="form-group">
             <label for="Email">Email</label>
-            <InputText @bind-Value=NewPerson.Email class="form-control" id="Email" />
+            <input type="email" @bind="@NewPerson.Email" class="form-control" id="Email" />
         </div>
         <input type="submit" class="btn btn-primary" value="Skicka" />
     </EditForm>
@@ -77,26 +75,33 @@
     List<Person> Persons = new List<Person>();
     private async Task GetValidPersonsAsync(String email)
     {
-        Persons = await service.GetValidPersonsAsync(email);
+        //Persons = await service.GetValidPersonsAsync(email);
         Console.WriteLine(Persons); 
     }
     private async Task SetPersonForAccept(Person person)
     {
-        await service.SetPersonForAccept(person);
+        //await service.SetPersonForAccept(person);
     }
     public Person NewPerson { get; set; } = new Person();
     string LastSubmitResult;
+
+
+
     async void ValidFormSubmitted(EditContext editContext)
     {
-        NewPerson.Registred = true; 
-        await service.AddPersonAsync(NewPerson);
+        //NewPerson.Registred = true; 
+        //await service.AddPersonAsync(NewPerson);
         LastSubmitResult = "OnValidSubmit was executed";
+        NavigationManager.NavigateTo("/registrerad/" + NewPerson.Email);
+        //MailService minmailklient = new MailService(); 
+        //minmailklient
     }
 
     void InvalidFormSubmitted(EditContext editContext)
     {
         LastSubmitResult = "OnInvalidSubmit was executed";
     }
+
     //protected override async Task OnInitializedAsync()
     //{
     //    await RefreshPersons();

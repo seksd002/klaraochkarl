@@ -6,7 +6,6 @@
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Id</th>
                     <th>Förnamn</th>
                     <th>Efternamn</th>
                     <th>Email</th>
@@ -20,11 +19,9 @@
                     @foreach (var product in Persons)
                     {
                         <tr @onclick="(() => SetPersonForUpdate(product))">
-                            <td>@product.Id</td>
-                            <td>@product.Surname</td>
-                            <td>@product.Lastname</td>
+                            <td>@product.Name</td>
                             <td>@product.Email</td>
-                            <td>@product.Registred.ToString()</td>
+                            <td>@product.Rwsps.ToString()</td>
                             <td><button class="btn btn-danger" @onclick="(() => DeletePerson(product))">Delete</button></td>
                         </tr>
                     }
@@ -41,45 +38,39 @@
             <div class="p-3 mb-3 bg-primary text-white text-center">Lägg till person</div>
             <EditForm Model="@NewPerson">
                 <div class="form-group">
-                    <label for="surname">Förnamn</label>
-                    <input type="text" id="surname" class="form-control" @bind-value="@NewPerson.Surname" />
+                    <label for="Name">Namn</label>
+                    <input type="text" id="surname" class="form-control" @bind-value="@NewPerson.Name" />
                 </div>
-                <div class="form-group">
-                    <label for="price">Efternamn</label>
-                    <input type="text" id="lastname" class="form-control" @bind="@NewPerson.Lastname" />
-                </div>
+               
                 <div class="form-group">
                     <label for="quantity">Email</label>
                     <input type="email" id="email" class="form-control" @bind="@NewPerson.Email" />
                 </div>
-                <div class="form-group">
+               @* <div class="form-group">
                     <label for="Description">Registrerad</label>
-                    <input type="checkbox" id="Description" class="form-control" @bind="@NewPerson.Registred" />
-                </div>
+                    <input type="checkbox" id="Description" class="form-control" @bind="@NewPerson.Rwsps" />
+                </div>*@
                 <div class="text-center p-3 mb-3">
                     <button class="btn btn-info" @onclick="AddNewPerson"> Lägg till person</button>
                 </div>
             </EditForm>
         </div>
         <div class="col-5 bg-light m-2 justify-content-end">
-            <div class="p-3 mb-1 bg-primary text-white text-center"> Ange dina uppgifter</div>
+            <div class="p-3 mb-1 bg-primary text-white text-center"> Ange nya uppgifter</div>
             <EditForm Model="@UpdatePerson">
                 <div class="form-group">
-                    <label for="surname">Förnamn</label>
-                    <input type="text" id="surname" class="form-control" @bind-value="@UpdatePerson.Surname" />
+                    <label for="Name">Namn</label>
+                    <input type="text" id="surname" class="form-control" @bind-value="@UpdatePerson.Name" />
                 </div>
-                <div class="form-group">
-                    <label for="efternamn">Efternamn</label>
-                    <input type="text" id="lastname" class="form-control" @bind="@UpdatePerson.Lastname" />
-                </div>
+                
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" class="form-control" @bind="@UpdatePerson.Email" />
                 </div>
-                <div class="form-group">
+              @*  <div class="form-group">
                     <label for="Registred">Registrerad</label>
                     <input type="checkbox" id="Description" class="form-control" @bind="@UpdatePerson.Registred" />
-                </div>
+                </div>*@
                 <div class="text-center p-3 mb-3">
                     <button class="btn btn-info" @onclick="UpdatePersonData"> Uppdatera person</button>
                 </div>
@@ -95,12 +86,12 @@
     }
     private async Task RefreshPersons()
     {
-        Persons = await service.GetPersonAsync();
+        //Persons = await service.GetPersonAsync();
     }
     public Person NewPerson { get; set; } = new Person();
     private async Task AddNewPerson()
     {
-        await service.AddPersonAsync(NewPerson);
+        //await service.AddPersonAsync(NewPerson);
         NewPerson = new Person();
         await RefreshPersons();
     }
@@ -111,12 +102,12 @@
     }
     private async Task UpdatePersonData()
     {
-        await service.UpdatePersonAsync(UpdatePerson);
+        //await service.UpdatePersonAsync(UpdatePerson);
         await RefreshPersons();
     }
     private async Task DeletePerson(Person person)
     {
-        await service.DeletePersonAsync(person);
+        //await service.DeletePersonAsync(person);
         await RefreshPersons();
     }
 }
