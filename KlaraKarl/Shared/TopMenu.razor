@@ -8,14 +8,14 @@
         collapseNavMenu = !collapseNavMenu;
     }
 }
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 navbar-custom">
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 navbar-custom">
     <div class="container">
-        <button class="navbar-toggler custom-navbartoggler" @onclick="ToggleNavMenu" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        <button class="navbar-toggler custom-toggler" @onclick="ToggleNavMenu" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="@NavMenuCssClass navbar-collapse d-sm-inline-flex flex-sm-row-reverse" @onclick="ToggleNavMenu">
-            <ul class="navbar-nav flex-grow-1">
+            <ul class="navbar-nav flex-grow-1 ">
                 <li class="nav-item">
                     <a class="nav-link" href="vagbeskrivning">VÄGBESKRIVNING</a>
                 </li>
@@ -26,7 +26,7 @@
                     <a class="nav-link" href="osa">ANMÄLAN</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="meromfesten">MER OM FESTEN</a>
+                    <a class="nav-link" href="meromfesten">MER OM DAGEN</a>
                 </li>
             </ul>
         </div>

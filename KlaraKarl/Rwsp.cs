@@ -7,7 +7,7 @@ public partial class Rwsp
 {
     public long? PersonId { get; set; }
 
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     public virtual Person? Person { get; set; }
 }
