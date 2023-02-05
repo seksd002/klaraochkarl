@@ -1,0 +1,45 @@
+﻿@using System.Timers;
+    <p>Om @Days dagar @Minutes minuter och @Seconds sekunder är det dags för bröllop och vi hoppas att få fira vår dag tillsammans med er.</p>
+@code {
+    private string? Days;
+    private string? Minutes;
+    private string? Seconds;
+   
+    private void calcTime()
+    {
+        DateTime Start = DateTime.Now;
+        DateTime EndDay = new DateTime(2023, 08, 19, 00, 00, 00);
+        TimeSpan Time = EndDay - Start;
+        Days = Time.Days.ToString();
+        Minutes = Time.Minutes.ToString();
+        Seconds = Time.Seconds.ToString();
+    }
+    private string currentTime = DateTime.Now.ToString("HH:mm:ss tt");
+
+    private Timer? secondsTimer;
+
+    protected override void OnInitialized()
+    {
+        //one second interval
+        secondsTimer = new Timer(1000);
+        secondsTimer.Enabled = true;
+        secondsTimer.AutoReset = true;
+        secondsTimer.Elapsed += (sender, e) => UpdateTime();
+    }
+
+    private void UpdateTime()
+    {
+        currentTime = DateTime.Now.ToString("HH:mm:ss tt");
+        calcTime();
+        InvokeAsync(() =>
+        {
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        secondsTimer?.Dispose();
+    }
+
+}
