@@ -42,9 +42,11 @@ ul {
 .navbar-custom {
     margin-top:50px;
     align-items:center;
-    color:blue;
-
+    /*color:blue;*/
+    /*z-index: -1;
+    position: relative;*/
 }
+
 .custom-toggler .navbar-toggler-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(243,155,1, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
@@ -100,7 +102,48 @@ ul {
 /*Small sized displays */
 
 @media only screen and (max-width: 510px) {
-   
+
+    .navbar-custom {
+        align-items: center;
+        color: blue;
+    }
+    .custom-navmenu {
+        /*z-index: -1;*/
+        position: absolute;
+        margin-top: 300px;
+        width: 100px;
+        margin-left:120px;
+     
+    }
+   /* .nav-item {
+        background-color: #8ca18e;
+        border-radius: 250px;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+ 
+    }*/
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        gap:20px;
+        
+    }
+
+    .nav-link {
+        /*font-weight: bold;
+        color: #e5e3cc;
+        align-items: center;
+        text-align: center;
+        display: contents;*/
+        display: block;
+        color: #000;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
 }
 /*Medium sized displays */
 @media only screen and (min-width: 510px) and (max-width: 1200px) {
