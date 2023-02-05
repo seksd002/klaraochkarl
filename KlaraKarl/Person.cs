@@ -11,5 +11,7 @@ public partial class Person
 
     public int Id { get; set; }
 
+    public String? OtherInfo {get;set;}
+
     public virtual ICollection<Rwsp> Rwsps { get; } = new List<Rwsp>();
 }

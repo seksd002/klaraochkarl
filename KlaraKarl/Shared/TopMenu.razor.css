@@ -97,4 +97,43 @@ ul {
         overflow-y: auto;
     }
 }
+/*Small sized displays */
+
+@media only screen and (max-width: 510px) {
+   
+}
+/*Medium sized displays */
+@media only screen and (min-width: 510px) and (max-width: 1200px) {
+
+
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .collapse {
+        /*     Never collapse the sidebar for wide screens 
+*/ display: block;
+    }
+
+    .nav-scrollable {
+        /*     Allow sidebar to scroll for tall menus 
+*/ height: calc(100vh - 3.5rem);
+        overflow-y: auto;
+    }
+    .nav-link {
+        font-weight: bold;
+        color: #e5e3cc;
+        align-items: center;
+        text-align: center;
+        display: contents;
+        background-color: blue;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+    }
+}
 

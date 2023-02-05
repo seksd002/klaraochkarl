@@ -9,5 +9,6 @@ public partial class Rwsp
 
     public int Id { get; set; }
 
+    public string? Allergy { get; set; }
     public virtual Person? Person { get; set; }
 }

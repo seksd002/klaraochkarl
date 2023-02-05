@@ -3,74 +3,79 @@
 @inject NavigationManager NavigationManager; 
 <PageTitle>OSA</PageTitle>
 
-<h1>Svara på inbjudan</h1>
+<div class="container">
 
-@*<input type="text" placeholder="Ange din e-postadress " @bind="email" />
-<br />
-<button @onclick="(() => GetValidPersonsAsync(email))">Hitta inbjudan</button>*@
-<div class="row bg-light">
-    @*<table class="table table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>Förnamn</th>
-                <th>Efternamn</th>
-                <th>Email</th>
-                <th>Registrerad</th>
-                <th>Registrera</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Persons.Any())
-            {
-                @foreach (var person in Persons)
-                {
-                    <tr @onclick="(() => SetPersonForAccept(person))">
-                        <td>@person.Surname</td>
-                        <td>@person.Lastname</td>
-                        <td>@person.Email</td>
-                        <td>@person.Registred</td>
+<EditForm Model=@NewPerson OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted class="well form-horizontal">
 
-                    </tr>
-                }
-            }
-            else
-            {
-                <tr><td colspan="6"><strong>Hittade inga inbjudningar med vald e-postadress</strong></td></tr>
-            }
-        </tbody>
-    </table>*@
-  @*  <EditForm Model="@NewPerson">
+
+<!-- Form Name -->
+<legend>Anmälan!</legend>
+
+<!-- Text input-->
         <div class="form-group">
-            <label for="surname">Förnamn</label>
-            <input type="text"  @bind-Value=NewPerson.SurName id="surname" class="form-control" />
-        </div>
+            <label for="Name">För och efternamn</label>
+            <InputText @bind-Value=NewPerson.Name class="form-control" id="SurName" placeholder="För och efternamn" />
+        </div>  
         <div class="form-group">
-            <label for="price">Efternamn</label>
-            <input type="text" id="lastname" class="form-control" />
+            <label for="Name">E-post</label>
+            <input type="email" @bind="@NewPerson.Email" class="form-control" id="Email" placeholder="Ange din e-post" />
         </div>
-        <div class="form-group">
-            <label for="quantity">Email</label>
-            <input type="email" id="email" class="form-control"  />
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" @onclick=toggle>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Specialkost</label>
         </div>
-       
-        <div class="text-center p-3 mb-3">
-            <button class="btn btn-info" @onclick="AddNewPerson"> Lägg till person</button>
-        </div>
-    </EditForm>*@
-    <EditForm Model=@NewPerson OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted>
-        <div class="form-group">
-            <label for="Name">Namn</label>
-            <InputText @bind-Value=NewPerson.Name class="form-control" id="SurName" />
-        </div>
+        <div hidden=@IsHidden>
+            <p>Kryssa i eventuella allergier eller ange speciella önskemål</p>
         
-        <div class="form-group">
-            <label for="Email">Email</label>
-            <input type="email" @bind="@NewPerson.Email" class="form-control" id="Email" />
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something">
+                <label class="form-check-label" for="check1">Mjölk</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+                <label class="form-check-label" for="check2">Laktos</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input">
+                <label class="form-check-label">Skaldjur</label>
+            </div>
+            <div class="form-group">
+                <label for="Allergy">Skriv in eventuell annan specialkost</label>
+                <InputText @bind-Value=@NewRwsp.Allergy class="form-control" id="Allergy" />
+            </div>
         </div>
-        <input type="submit" class="btn btn-primary" value="Skicka" />
+        <div class="form-group">
+            <label for="OtherInfo">Övrigt</label>
+            <textarea type="text" @bind="@NewPerson.OtherInfo" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
+        </div>
+
+<!-- Button -->
+        <div class="form-group">
+  <label class="col-md-4 control-label"></label>
+  <div class="col-md-4">
+  <button type="submit" class="btn btn-primary">Skicka <span class="glyphicon glyphicon-send"></span></button>
+  </div>
+</div>
+
     </EditForm>
 </div>
+    <!-- /.container -->
+
 @code {
+    private bool IsHidden = true;
+    private void toggle()
+    {
+
+        if(this.IsHidden == true)
+        {
+            IsHidden = false;
+        }
+        else
+        {
+            IsHidden = true; 
+        }
+    }
+
     string? email; 
     List<Person> Persons = new List<Person>();
     private async Task GetValidPersonsAsync(String email)
@@ -83,6 +88,7 @@
         //await service.SetPersonForAccept(person);
     }
     public Person NewPerson { get; set; } = new Person();
+    public Rwsp NewRwsp { get; set; } = new Rwsp();
     string LastSubmitResult;
 
 
