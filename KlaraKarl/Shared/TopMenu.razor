@@ -8,13 +8,13 @@
         collapseNavMenu = !collapseNavMenu;
     }
 }
-<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 navbar-custom">
+@*<nav class="navbar navbar-expand-sm navbar-toggleable-sm box-shadow mb-3 navbar-custom">
     <div class="container">
         <button class="navbar-toggler custom-toggler" @onclick="ToggleNavMenu" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="@NavMenuCssClass navbar-collapse d-sm-inline-flex flex-sm-row-reverse custom-navmenu" @onclick="ToggleNavMenu">
+        </button>*@
+        @*<div class="@NavMenuCssClass navbar-collapse d-sm-inline-flex flex-sm-row-reverse custom-navmenu" @onclick="ToggleNavMenu">
             <ul class="navbar-nav flex-grow-1 ">
                 <li class="nav-item">
                     <a class="nav-link" href="vagbeskrivning">VÄGBESKRIVNING</a>
@@ -29,6 +29,12 @@
                     <a class="nav-link" href="meromfesten">MER OM DAGEN</a>
                 </li>
             </ul>
-        </div>
-    </div>
-</nav>
+        </div>*@
+  @*  </div>
+</nav>*@
+<div class="topmeny-flex-container">
+    <div class="menuitems"> <a class="nav-link" href="meromfesten">mer om dagen</a></div>
+    <div class="menuitems"> <a class="nav-link" href="osa">anmälan</a></div>
+    <div class="menuitems"> <a class="nav-link" href="brollopskoren">bröllopskören</a></div>
+    <div class="menuitems"> <a class="nav-link" href="vagbeskrivning">vägbeskrivning</a></div>
+</div>
