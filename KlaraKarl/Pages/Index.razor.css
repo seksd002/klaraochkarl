@@ -1,9 +1,8 @@
 ﻿
 .custom-flex-container {
     display: flex;
-    justify-content:center;
-    gap:40px;
-
+    justify-content: center;
+    gap: 40px;
 }
 .mycointainer {
     display: flex;
@@ -31,11 +30,12 @@
 
 /*Small sized displays */
 
-/*@media only screen and (max-width: 577px) {
-    .container {
-        margin-top: -70px;
+@media only screen and (max-width: 577px) {
+    .mycointainer {
+        margin-top: 115px;
     }
-    table {
+}
+    /*table {
         border-collapse: collapse;
         margin: 0;
         padding: 0;
