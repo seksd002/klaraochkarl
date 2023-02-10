@@ -4,7 +4,7 @@
     justify-content: center;
     gap: 40px;
 }
-.mycointainer {
+.mycontainer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,8 +31,43 @@
 /*Small sized displays */
 
 @media only screen and (max-width: 577px) {
-    .mycointainer {
-        margin-top: 115px;
+    .mycontainer {
+        margin-top: 90px;
+    }
+    .headline {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #f39b01;
+        font-family: LunchBox;
+        font-size: 120px;
+        margin-top: -50px;
+    }
+    .custom-flex-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        grid-gap: 0px;
+    }
+    .heart {
+        width: 500px;
+        margin-top: -100px
+    }
+    .karl {
+        margin-bottom: -90px;
+        text-align: center;
+    }
+    .klara{
+        margin-top:-90px;
+    }
+    .and{
+        text-align:center;
+    }
+    .breadtext {
+        text-decoration: wavy;
+        color: #2a2e30;
+        font-size: 40px;
+        margin-top: -70px;
+        padding:40px;
     }
 }
     /*table {

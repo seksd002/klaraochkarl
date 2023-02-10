@@ -1,5 +1,6 @@
 ﻿@page "/registrerad/{email}"
 @inject KlarakarlServices service
+<div class="mycontainer">
 @*<h1>Anmälan mottagen för @Person.Name </h1>*@
 <h1>Din anmälan är mottagen</h1>
 @*<p>Här är dina uppgifter</p>
@@ -33,6 +34,7 @@
     </div>
     </div>*@
 <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
+</div>
 @code {
     [Parameter]
     public string? email { get; set; }
