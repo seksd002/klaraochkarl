@@ -1,18 +1,18 @@
-﻿@code {
-    //string topmenytoggleclass { get; set; } 
-    
-    //bool displaymenu { get; set; } = false; 
-    //private void setdisplay()
-    //{
-    //    if(displaymenu == true)
-    //    {
-    //        displaymenu = false;
-    //    } 
-    //    else
-    //    {
-    //        displaymenu = true;
-    //    }
-    //}
+﻿@inject NavigationManager NavigationManager;
+@inject IJSRuntime jsRuntime
+
+
+@code {
+  
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        jsRuntime.InvokeVoidAsync("hidehomebtn");
+        return base.OnAfterRenderAsync(firstRender);
+    }
     string divClass = "toggleoff";
 
     private void setdisplay()
@@ -26,11 +26,14 @@
             divClass = "toggleoff";
         }
     }
+
 }
 <img class="togglericon" src="/images/Hamburgarmeny.png" @onclick="setdisplay" />
-<div class="topmeny-flex-container @divClass">
-    <div class="menuitems"> <a class="nav-link" href="meromfesten">mer om dagen</a></div>
-    <div class="menuitems"> <a class="nav-link" href="osa">anmälan</a></div>
-    <div class="menuitems"> <a class="nav-link" href="brollopskoren">bröllopskören</a></div>
-    <div class="menuitems"> <a class="nav-link" href="vagbeskrivning">vägbeskrivning</a></div>
+
+<div class="topmeny-flex-container container-fluid @divClass">
+    <div id="homebtn" class="homebtn menuitems"> <a class="nav-link" href="/" @onclick="setdisplay">Start</a></div>
+    <div class="menuitems"> <a class="nav-link" href="meromfesten" @onclick="setdisplay">mer om dagen</a></div>
+    <div class="menuitems"> <a class="nav-link" href="osa" @onclick="setdisplay">anmälan</a></div>
+    <div class="menuitems"> <a class="nav-link" href="brollopskoren" @onclick="setdisplay">bröllopskören</a></div>
+    <div class="menuitems"> <a class="nav-link" href="vagbeskrivning" @onclick="setdisplay">vägbeskrivning</a></div>
 </div>

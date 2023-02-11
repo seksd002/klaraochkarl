@@ -32,14 +32,14 @@
 
 @media only screen and (max-width: 577px) {
     .mycontainer {
-        margin-top: 90px;
+        margin-top: 70px;
     }
     .headline {
         text-transform: uppercase;
         font-weight: bold;
         color: #f39b01;
         font-family: LunchBox;
-        font-size: 120px;
+        font-size: 85px;
         margin-top: -50px;
     }
     .custom-flex-container {
@@ -49,15 +49,16 @@
         grid-gap: 0px;
     }
     .heart {
-        width: 500px;
+        width: 400px;
         margin-top: -100px
     }
     .karl {
-        margin-bottom: -90px;
+        margin-bottom: -55px;
         text-align: center;
     }
-    .klara{
-        margin-top:-90px;
+    .klara {
+        margin-top: -55px;
+        text-align: center;
     }
     .and{
         text-align:center;
@@ -65,7 +66,7 @@
     .breadtext {
         text-decoration: wavy;
         color: #2a2e30;
-        font-size: 40px;
+        font-size: 20px;
         margin-top: -70px;
         padding:40px;
     }
