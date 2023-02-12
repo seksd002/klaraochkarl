@@ -31,6 +31,12 @@ namespace KlaraKarl.Data
             return personlist.FirstOrDefault();
 
         }
+        public KlaraKarl.Wedding GetWedding()
+        {
+            var weddinglist = dbContext.Weddings.ToList();
+
+            return weddinglist.FirstOrDefault();
+        }
         //    public async Task<List<Person>> GetPersonAsync()
         //    {
         //        return await dbContext.People.ToListAsync();

@@ -9,9 +9,7 @@ public partial class Person
 
     public string? Email { get; set; }
 
-    public int Id { get; set; }
-
-    public String? OtherInfo {get;set;}
+    public long Id { get; set; }
 
     public virtual ICollection<Rwsp> Rwsps { get; } = new List<Rwsp>();
 }

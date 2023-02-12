@@ -1,15 +1,19 @@
 ﻿@using System.Timers;
+@inject KlarakarldbContext service;
+
+
 <p>Om <b>@Days</b> dagar <b>@Minutes</b> minuter och <b>@Seconds</b> sekunder är det dags för bröllop och vi hoppas att få fira vår dag tillsammans med er.</p>
 @code {
     private string? Days;
     private string? Minutes;
     private string? Seconds;
-   
-    private void calcTime()
+
+    private void calcTime(DateTime date)
     {
         DateTime Start = DateTime.Now;
+
         DateTime EndDay = new DateTime(2023, 08, 19, 00, 00, 00);
-        TimeSpan Time = EndDay - Start;
+        TimeSpan Time = date - Start;
         Days = Time.Days.ToString();
         Minutes = Time.Minutes.ToString();
         Seconds = Time.Seconds.ToString();
@@ -24,13 +28,18 @@
         secondsTimer = new Timer(1000);
         secondsTimer.Enabled = true;
         secondsTimer.AutoReset = true;
-        secondsTimer.Elapsed += (sender, e) => UpdateTime();
+        var date = service.Weddings.FirstOrDefault();
+        var outdate = DateTime.Parse(date.Date);
+
+
+
+        secondsTimer.Elapsed += (sender, e) => UpdateTime(outdate);
     }
 
-    private void UpdateTime()
+    private void UpdateTime(DateTime date)
     {
         currentTime = DateTime.Now.ToString("HH:mm:ss tt");
-        calcTime();
+        calcTime(date);
         InvokeAsync(() =>
         {
             StateHasChanged();

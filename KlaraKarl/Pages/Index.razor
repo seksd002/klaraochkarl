@@ -1,13 +1,32 @@
-﻿
+﻿@using System.Timers;
+@inject KlarakarldbContext service;
+
+
+@code {
+    //string bridename = service.Participants.Where(a => a.AuthorId == 1).Single();
+    public string bridename { get; set; }
+    public string groomname { get; set; }
+
+
+
+    protected override void OnInitialized()
+    {
+
+        bridename = service.Participants.Where(a => a.Type == 1).Single().Firstname.ToString();
+        groomname = service.Participants.Where(a => a.Type == 2).Single().Firstname.ToString();
+
+    }
+
+}
 @page "/"
 
 <PageTitle>Klara & Karl - 2023-08-19</PageTitle>
 
 <div class="mycontainer">
     <div class="custom-flex-container headline container-fluid">
-      <div class="karl">Karl</div>
+      <div class="karl">@groomname</div>
       <div class="and">&</div>
-      <div class="klara">Klara</div>
+        <div class="klara">@bridename</div>
    </div>
    <div class="item">
       <img src="/images/heart.png" class="heart img-fluid" id="heart">

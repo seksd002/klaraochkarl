@@ -41,12 +41,12 @@
             </div>
             <div class="form-group">
                 <label for="Allergy">Skriv in eventuell annan specialkost</label>
-                <InputText @bind-Value=@NewRwsp.Allergy class="form-control" id="Allergy" />
+                <InputText @bind-Value=@NewPerson.Name class="form-control" id="Allergy" />
             </div>
         </div>
         <div class="form-group">
             <label for="OtherInfo">Övrigt</label>
-            <textarea type="text" @bind="@NewPerson.OtherInfo" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
+            <textarea type="text" @bind="@NewPerson.Name" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
         </div>
 
 <!-- Button -->
