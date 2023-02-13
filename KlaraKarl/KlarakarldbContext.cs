@@ -61,7 +61,7 @@ public partial class KlarakarldbContext : DbContext
         {
             entity.ToTable("Rwsp");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Rwsps).HasForeignKey(d => d.PersonId);
+            entity.Property(e => e.Rwspid).HasColumnName("RWSPId");
         });
 
         modelBuilder.Entity<Wedding>(entity =>

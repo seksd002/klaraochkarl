@@ -21,7 +21,7 @@
                         <tr @onclick="(() => SetPersonForUpdate(product))">
                             <td>@product.Name</td>
                             <td>@product.Email</td>
-                            <td>@product.Rwsps.ToString()</td>
+                            <td>@product.Name</td>
                             <td><button class="btn btn-danger" @onclick="(() => DeletePerson(product))">Delete</button></td>
                         </tr>
                     }

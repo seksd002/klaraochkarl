@@ -10,7 +10,8 @@
 
 <!-- Form Name -->
 <legend>Anmälan!</legend>
-
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 <!-- Text input-->
         <div class="form-group">
             <label for="Name">För och efternamn</label>
@@ -20,6 +21,7 @@
             <label for="Name">E-post</label>
             <input type="email" @bind="@NewPerson.Email" class="form-control" id="Email" placeholder="Ange din e-post" />
         </div>
+        <br />
         <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" @onclick=toggle>
             <label class="form-check-label" for="flexSwitchCheckDefault">Specialkost</label>
@@ -41,12 +43,12 @@
             </div>
             <div class="form-group">
                 <label for="Allergy">Skriv in eventuell annan specialkost</label>
-                <InputText @bind-Value=@NewPerson.Name class="form-control" id="Allergy" />
+                <InputText @bind-Value=@NewPerson.customAllergy class="form-control" id="Allergy" />
             </div>
         </div>
         <div class="form-group">
             <label for="OtherInfo">Övrigt</label>
-            <textarea type="text" @bind="@NewPerson.Name" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
+            <textarea type="text" @bind="@NewPerson.Otherinfo" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
         </div>
 
 <!-- Button -->
@@ -77,18 +79,17 @@
     }
 
     string? email; 
-    List<Person> Persons = new List<Person>();
+    //List<Person> Persons = new List<Person>();
     private async Task GetValidPersonsAsync(String email)
     {
         //Persons = await service.GetValidPersonsAsync(email);
-        Console.WriteLine(Persons); 
+        //Console.WriteLine(Persons); 
     }
     private async Task SetPersonForAccept(Person person)
     {
         //await service.SetPersonForAccept(person);
     }
-    public Person NewPerson { get; set; } = new Person();
-    public Rwsp NewRwsp { get; set; } = new Rwsp();
+    public Osaformmodel NewPerson { get; set; } = new Osaformmodel();
     string LastSubmitResult;
 
 
@@ -98,7 +99,14 @@
         //NewPerson.Registred = true; 
         //await service.AddPersonAsync(NewPerson);
         LastSubmitResult = "OnValidSubmit was executed";
+
         NavigationManager.NavigateTo("/registrerad/" + NewPerson.Email);
+        Console.WriteLine(NewPerson); 
+        var person = new Person
+            {
+                Name = NewPerson.Name,
+                Email = NewPerson.Email,
+            };
         //MailService minmailklient = new MailService(); 
         //minmailklient
     }
