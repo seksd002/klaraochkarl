@@ -10,4 +10,8 @@ public partial class Person
     public string? Email { get; set; }
 
     public long Id { get; set; }
+
+    public long? RwspId { get; set; }
+
+    public virtual Rwsp? Rwsp { get; set; }
 }

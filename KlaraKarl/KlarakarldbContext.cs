@@ -55,13 +55,13 @@ public partial class KlarakarldbContext : DbContext
         modelBuilder.Entity<Person>(entity =>
         {
             entity.ToTable("Person");
+
+            entity.HasOne(d => d.Rwsp).WithMany(p => p.People).HasForeignKey(d => d.RwspId);
         });
 
         modelBuilder.Entity<Rwsp>(entity =>
         {
             entity.ToTable("Rwsp");
-
-            entity.Property(e => e.Rwspid).HasColumnName("RWSPId");
         });
 
         modelBuilder.Entity<Wedding>(entity =>
