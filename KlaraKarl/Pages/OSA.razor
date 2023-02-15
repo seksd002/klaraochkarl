@@ -16,10 +16,13 @@
         <div class="form-group">
             <label for="Name">För och efternamn</label>
             <InputText @bind-Value=NewPerson.Name class="form-control" id="SurName" placeholder="För och efternamn" />
+            <ValidationMessage For="@(() => NewPerson.Name)" />
         </div>  
         <div class="form-group">
             <label for="Name">E-post</label>
             <input type="email" @bind="@NewPerson.Email" class="form-control" id="Email" placeholder="Ange din e-post" />
+            <ValidationMessage For="@(() => NewPerson.Email)" />
+
         </div>
         <br />
         <div class="form-check form-switch">
@@ -27,20 +30,19 @@
             <label class="form-check-label" for="flexSwitchCheckDefault">Specialkost</label>
         </div>
         <div hidden=@IsHidden>
-            <p>Kryssa i eventuella allergier eller ange speciella önskemål</p>
-        
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something">
-                <label class="form-check-label" for="check1">Mjölk</label>
+            <div class="form-group">
+                <label>Specialkost (markera vid behov):</label>
+                @foreach (var item in @allergylist)
+                {
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="Allergies" value="@item.Allergy" checked="@NewPerson.Allergies.Contains(item.Allergy)" @oninput="e => UpdateAllergies(e, item.Allergy)" />
+                        <label class="form-check-label" for="check1">@item.Allergy</label>
+                    </div>
+                }
+                <ValidationMessage For="@(() => NewPerson.Allergies)" />
             </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
-                <label class="form-check-label" for="check2">Laktos</label>
-            </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label">Skaldjur</label>
-            </div>
+          
+
             <div class="form-group">
                 <label for="Allergy">Skriv in eventuell annan specialkost</label>
                 <InputText @bind-Value=@NewPerson.customAllergy class="form-control" id="Allergy" />
@@ -49,9 +51,9 @@
         <div class="form-group">
             <label for="OtherInfo">Övrigt</label>
             <textarea type="text" @bind="@NewPerson.Otherinfo" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
-        </div>
+            <ValidationMessage For="@(() => NewPerson.Otherinfo)" />
 
-<!-- Button -->
+        </div>
         <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
@@ -61,9 +63,27 @@
 
     </EditForm>
 </div>
-    <!-- /.container -->
 
 @code {
+    List<PossibleAllergy> allergylist = new List<PossibleAllergy> ();
+
+    protected override void OnInitialized()
+    {
+        allergylist = service.PossibleAllergies.ToList();
+
+
+    }
+    private void UpdateAllergies(ChangeEventArgs e, string allergy)
+    {
+        if ((bool)e.Value)
+        {
+            NewPerson.Allergies.Add(allergy);
+        }
+        else
+        {
+            NewPerson.Allergies.Remove(allergy);
+        }
+    }
     private bool IsHidden = true;
     private void toggle()
     {
@@ -77,6 +97,7 @@
             IsHidden = true; 
         }
     }
+    //List<string> allergylist = new List<string> { "Mjölk", "Laktos", "Ägg" };
 
     string? email; 
     //List<Person> Persons = new List<Person>();
@@ -94,12 +115,11 @@
 
 
 
-    async void ValidFormSubmitted(EditContext editContext)
+    private void ValidFormSubmitted(EditContext editContext)
     {
         LastSubmitResult = "OnValidSubmit was executed";
 
         NavigationManager.NavigateTo("/registrerad/" + NewPerson.Email);
-        Console.WriteLine(NewPerson); 
         var person = new Person
             {
                 Name = NewPerson.Name,
@@ -116,6 +136,15 @@
         };
         rwsp.Allergies.Add(allergy);
         service.Rwsps.Add(rwsp);
+        foreach(String allerg in NewPerson.Allergies)
+        {
+            var allergg = new Allergy
+                {
+                    Allergy1 = allerg
+                };
+            rwsp.Allergies.Add(allergg);
+
+        }
         service.SaveChanges();
   
     }

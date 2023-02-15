@@ -14,6 +14,10 @@ namespace KlaraKarl.Pages
         public string Otherinfo { get; set; }
 
         public string customAllergy { get; set; }
-        public List <String> Allergy { get; set; }
+        public List <String> Allergies { get; set; }
+        public Osaformmodel()
+        {
+            Allergies = new List<String>();
+        }
     }
 }

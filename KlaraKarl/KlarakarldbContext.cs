@@ -23,6 +23,8 @@ public partial class KlarakarldbContext : DbContext
 
     public virtual DbSet<Person> People { get; set; }
 
+    public virtual DbSet<PossibleAllergy> PossibleAllergies { get; set; }
+
     public virtual DbSet<Rwsp> Rwsps { get; set; }
 
     public virtual DbSet<Wedding> Weddings { get; set; }
