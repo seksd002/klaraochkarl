@@ -3,14 +3,14 @@
 
 
 @code {
-    public string bridename { get; set; } = "Klara";
-    public string groomname { get; set; } = "Karl";
+    public string bridename { get; set; }
+    public string groomname { get; set; } 
 
     protected override void OnInitialized()
     {
 
-        //bridename = service.Participants.Where(a => a.Type == 1).Single().Firstname.ToString();
-        //groomname = service.Participants.Where(a => a.Type == 2).Single().Firstname.ToString();
+        bridename = service.Participants.Where(a => a.ParticipantRoleId == 1).Single().ParticipantFirstname.ToString();
+        groomname = service.Participants.Where(a => a.ParticipantRoleId == 2).Single().ParticipantFirstname.ToString();
 
     }
 

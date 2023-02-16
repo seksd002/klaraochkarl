@@ -7,11 +7,11 @@ public partial class Participant
 {
     public long Id { get; set; }
 
-    public long? Type { get; set; }
+    public string? ParticipantFirstname { get; set; }
 
-    public string? Surname { get; set; }
+    public long? ParticipantRoleId { get; set; }
 
-    public string? Firstname { get; set; }
+    public string? ParticipantSurname { get; set; }
 
-    public virtual ParticipantType? TypeNavigation { get; set; }
+    public virtual ParticipantType? ParticipantRole { get; set; }
 }
