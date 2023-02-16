@@ -1,5 +1,4 @@
 ﻿@page "/registrerad/{email}"
-@inject KlarakarlServices service
 <div class="mycontainer">
 @*<h1>Anmälan mottagen för @Person.Name </h1>*@
 <h1>Din anmälan är mottagen</h1>
@@ -40,15 +39,8 @@
     public string? email { get; set; }
 
     Person Person = new Person();
-    protected override async Task OnInitializedAsync()
-    {
-        await GetPerson(email);
+  
 
-    }
-    private async Task GetPerson(string email)
-    {
-        //Person = await service.GetPerson(email);
-    }
     public void sendmail()
     {
         //EmailClient emailClient = new EmailClient(connectionString);

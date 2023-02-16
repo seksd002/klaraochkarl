@@ -17,9 +17,9 @@ public partial class KlarakarldbContext : DbContext
 
     public virtual DbSet<Allergy> Allergies { get; set; }
 
-    public virtual DbSet<Participant> Participants { get; set; }
+    //public virtual DbSet<Participant> Participants { get; set; }
 
-    public virtual DbSet<ParticipantType> ParticipantTypes { get; set; }
+    //public virtual DbSet<ParticipantType> ParticipantTypes { get; set; }
 
     public virtual DbSet<Person> People { get; set; }
 
@@ -42,12 +42,12 @@ public partial class KlarakarldbContext : DbContext
             entity.HasOne(d => d.Rwsp).WithMany(p => p.Allergies).HasForeignKey(d => d.RwspId);
         });
 
-        modelBuilder.Entity<Participant>(entity =>
-        {
-            entity.ToTable("Participant");
+        //modelBuilder.Entity<Participant>(entity =>
+        //{
+        //    entity.ToTable("Participant");
 
-            entity.HasOne(d => d.TypeNavigation).WithMany(p => p.Participants).HasForeignKey(d => d.Type);
-        });
+        //    entity.HasOne(d => d.TypeNavigation).WithMany(p => p.Participants).HasForeignKey(d => d.Type);
+        //});
 
         modelBuilder.Entity<ParticipantType>(entity =>
         {

@@ -1,7 +1,4 @@
 using KlaraKarl;
-using KlaraKarl.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +10,6 @@ builder.Services.AddDbContext<KlarakarldbContext>(options =>
 {
     options.UseSqlite("Data Source = Klarakarl.db");
 });
-builder.Services.AddScoped<KlarakarlServices>();
 
 var app = builder.Build();
 
