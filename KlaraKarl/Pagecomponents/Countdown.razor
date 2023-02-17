@@ -2,21 +2,58 @@
 @inject KlarakarldbContext service;
 
 
-<p>Om <b>@Days</b> dagar <b>@Minutes</b> minuter och <b>@Seconds</b> sekunder är det dags för bröllop och vi hoppas att få fira vår dag tillsammans med er.</p>
+<p>Om <b>@Days</b> @dag <b>@Hours</b> @timme <b>@Minutes</b> @minuter och <b>@Seconds</b> @sekunder är det dags för bröllop och vi hoppas att få fira vår dag tillsammans med er.</p>
 @code {
     private string? Days;
     private string? Minutes;
     private string? Seconds;
+    private string? Hours;
+    private string dag = "dagar";
+    private string timme = "timmar";
+    private string minuter = "minuter";
+    private string sekunder = "sekunder";
 
     private void calcTime(DateTime date)
     {
         DateTime Start = DateTime.Now;
 
-        DateTime EndDay = new DateTime(2023, 08, 19, 00, 00, 00);
+        DateTime EndDay = new DateTime(2023, 08, 19, 15, 00, 00);
         TimeSpan Time = date - Start;
         Days = Time.Days.ToString();
         Minutes = Time.Minutes.ToString();
         Seconds = Time.Seconds.ToString();
+        Hours = Time.Hours.ToString();
+        if (Minutes == "1")
+        {
+            minuter = "minut";
+        }
+        if (Seconds == "1")
+        {
+            sekunder = "sekund";
+        }
+        if (Hours == "0")
+        {
+            Hours = "";
+            timme = "";
+        }
+        if(Days == "1")
+        {
+            dag = "dag";
+        }
+        if (Hours == "1")
+        {
+            timme = "timme";
+        }
+        if(Seconds == "0")
+        {
+            Seconds = "";
+            sekunder = "";
+        }
+        if(Seconds == "59")
+        {
+            sekunder = "sekunder";
+        }
+
     }
     private string currentTime = DateTime.Now.ToString("HH:mm:ss tt");
 
@@ -30,8 +67,10 @@
         secondsTimer.AutoReset = true;
         var date = service.Weddings.FirstOrDefault();
         var outdate = DateTime.Parse(date.Date);
-
-
+     
+       
+      
+      
 
         secondsTimer.Elapsed += (sender, e) => UpdateTime(outdate);
     }
