@@ -15,17 +15,18 @@
     font-weight: bold;
     color: #f39b01;
     font-family: LunchBox;
-    font-size: 120px;
+    font-size: 4vw;
 }
 .heart {
-    width: 30vw;
-    margin-top: -7vw
+    width: 13vw;
+    margin-top: -1vw
 }
 .breadtext {
     text-decoration: wavy;
     color: #2a2e30;
-    font-size: 50px;
-    margin-top: -0vw;
+    font-size: 1.5vw;
+    margin-top: 1vw;
+    align-content:center;
 }
 
 /*Small sized displays */

@@ -1,25 +1,26 @@
 ﻿@page "/registrerad/{email}"
+@inject KlarakarldbContext service
+
 <div class="mycontainer">
-@*<h1>Anmälan mottagen för @Person.Name </h1>*@
+    <h1>Anmälan mottagen för @osa.Name </h1>
 <h1>Din anmälan är mottagen</h1>
-@*<p>Här är dina uppgifter</p>
+<p>Här är dina uppgifter</p>
 <div class="container">
     <div class="row bg-light">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Förnamn</th>
-                    <th>Efternamn</th>
+                    <th>Namn</th>
                     <th>Email</th>
                 </tr>
             </thead>
             <tbody>
-                @if (Person != null)
+                    @if (osa != null)
                 {
                    
                         <tr>
-                            <td>@Person.Name</td>
-                            <td>@Person.Email</td>
+                            <td>@osa.Name</td>
+                            <td>@osa.Email</td>
                       
                         </tr>
                     
@@ -31,14 +32,26 @@
             </tbody>
         </table>
     </div>
-    </div>*@
+    </div>
 <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
 </div>
 @code {
     [Parameter]
     public string? email { get; set; }
 
-    Person Person = new Person();
+    Osaformmodel osa = new Osaformmodel();
+    protected override void OnInitialized()
+    {
+        var person = service.People.Where(a => a.Email == email).Single();
+        osa.Email = person.Email;
+        osa.Name = person.Name; 
+        var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).Single();
+        osa.Otherinfo = rwsp.Otherinfo;
+        //var allergies = rwsp.Allergies;
+        //var test = "ertg"; 
+        
+
+    }
   
 
     public void sendmail()

@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7vw;
+    gap: 2vw;
 }
 .menuitems {
     background-color: #8ca18e;
@@ -30,7 +30,7 @@
     flex-basis: calc(100% / 8);
 }
 
-.homebtn {
+/*.homebtn {
     margin-top: -2vw;
     position: absolute;
     background-color: #8ca18e;
@@ -41,7 +41,7 @@
     transform: translate(-50%, -50%);
     width:7vw;
 
-}
+}*/
 .togglehomebtnoff{
     display:none;
 }

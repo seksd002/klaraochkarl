@@ -48,12 +48,7 @@
                 <InputText @bind-Value=@NewPerson.customAllergy class="form-control" id="Allergy" />
             </div>
         </div>
-        <div class="form-group">
-            <label for="OtherInfo">Övrigt</label>
-            <textarea type="text" @bind="@NewPerson.Otherinfo" class="form-control" id="OtherInfo" placeholder="Något övrigt du vill tillägga?" />
-            <ValidationMessage For="@(() => NewPerson.Otherinfo)" />
-
-        </div>
+      
         <div class="form-group">
   <label class="col-md-4 control-label"></label>
   <div class="col-md-4">
