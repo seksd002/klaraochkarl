@@ -1,5 +1,4 @@
-﻿@using System.Timers;
-@inject KlarakarldbContext service;
+﻿@inject Data.KlarakarldbContext service;
 
 
 @code {
@@ -19,18 +18,27 @@
 
 <PageTitle>Klara & Karl - 2023-08-19</PageTitle>
 
-<div class="mycontainer">
-    <div class="custom-flex-container headline container-fluid">
+<div class="container mycontainer">
+    <div class="row">
+        <div class="col-sm">
+            <div class="custom-flex-container headline container-fluid">
       <div class="karl">@groomname</div>
       <div class="and">&</div>
         <div class="klara">@bridename</div>
    </div>
-   <div class="item">
-      <img src="/images/heart.png" class="heart img-fluid" id="heart">
    </div>
-    <div class="breadtext flex-container container-fluid">
-      <KlaraKarl.Pagecomponents.Countdown></KlaraKarl.Pagecomponents.Countdown>
-   </div>
+            <div class="row">
+            </div>
+        <div class="col-sm d-flex justify-content-center">
+            <img src="/images/heart.png" id="heart" class="heart">
+        </div>
+        </div>
+    <div class="row">
+
+        <div class="breadtext col-sm d-flex justify-content-center">
+            <KlaraKarl.Pagecomponents.Countdown></KlaraKarl.Pagecomponents.Countdown>
+        </div>
+    </div>
 </div>
 
   

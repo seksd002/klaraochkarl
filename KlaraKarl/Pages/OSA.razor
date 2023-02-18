@@ -1,5 +1,6 @@
 ﻿@page "/osa"
-@inject KlarakarldbContext service
+@using KlaraKarl.Entities;
+@inject Data.KlarakarldbContext service
 @inject NavigationManager NavigationManager; 
 <PageTitle>OSA</PageTitle>
 
@@ -64,8 +65,10 @@
 
     protected override void OnInitialized()
     {
-        allergylist = service.PossibleAllergies.ToList();
-
+        allergylist = service.PossibleAllergies
+            .OrderByDescending(x => x.Allergy == "Vegetariskt")
+            .ThenBy(x => x.Allergy)
+            .ToList();
 
     }
     private void UpdateAllergies(ChangeEventArgs e, string allergy)

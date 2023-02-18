@@ -9,6 +9,12 @@
     display: contents;
     text-transform: uppercase;
     padding:200px;
+
+}
+.btn-primary {
+    background-color: #8ca18e;
+    text-transform: uppercase;
+    color: #e5e3cc;
 }
 
 
@@ -42,12 +48,7 @@
     width:7vw;
 
 }*/
-.togglehomebtnoff{
-    display:none;
-}
-.togglehomebtnon {
-    display: block;
-}
+
 /*Small sized displays */
 @media only screen and (max-width: 577px) {
     .topmeny-flex-container {
@@ -70,7 +71,7 @@
         height:auto;
         position:absolute;
         margin-top:-140px;
-        margin-left:-50px;
+        margin-left:325px;
     }
     .divClass{
         display: block;

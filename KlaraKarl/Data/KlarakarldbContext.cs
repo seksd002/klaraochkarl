@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using KlaraKarl.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace KlaraKarl;
+namespace KlaraKarl.Data;
 
 public partial class KlarakarldbContext : DbContext
 {

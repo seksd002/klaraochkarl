@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using KlaraKarl.Entities;
 
 namespace KlaraKarl.Pages
 {

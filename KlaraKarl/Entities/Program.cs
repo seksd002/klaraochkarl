@@ -1,4 +1,4 @@
-using KlaraKarl;
+using KlaraKarl.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

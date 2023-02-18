@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KlaraKarl;
+namespace KlaraKarl.Entities;
 
 public partial class PossibleAllergy
 {
