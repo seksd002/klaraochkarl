@@ -1,7 +1,11 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+@font-face {
+    font-family: 'glacialindifference-regular';
+    src: url('../fonts/glacialindifference-regular.otf') format('opentype');
+}
 html, body {
-    font-family: 'Glacial Indifference';
+    font-family: 'glacialindifference-regular';
     max-height: 100%
 }
 
