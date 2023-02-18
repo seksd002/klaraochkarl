@@ -3,6 +3,11 @@
         max-width: 25vw;
     }
 }
+
+@font-face {
+    font-family: 'lunchbox';
+    src: url('fonts/lunchbox.ttf') format('truetype');
+}
 .custom-flex-container {
     display: flex;
     justify-content: center;
@@ -16,10 +21,10 @@
     margin-top:3vw;
 }
 .headline {
-   text-transform: uppercase;
+    text-transform: uppercase;
     font-weight: bold;
     color: #f39b01;
-    font-family: LunchBox;
+    font-family: lunchbox;
     font-size: 4vw;
 }
 .heart {
