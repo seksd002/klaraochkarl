@@ -10,21 +10,33 @@
             <thead class="thead-dark">
                 <tr>
                     <th>Namn</th>
-                    <th>Email</th>
+                    <th>E-post</th>
                 </tr>
             </thead>
             <tbody>
                     @if (osa != null)
-                {
-                   
+                    {
+
                         <tr>
                             <td>@osa.Name</td>
                             <td>@osa.Email</td>
-                      
+
                         </tr>
+                        @if (osa.Allergies2.Count > 1)
+                        {
+                            <tr><td colspan="6"><strong>Specialkost</strong></td></tr>
+                            @foreach (var item in osa.Allergies2)
+                            {
+                                <tr><td colspan="6">@item.Allergy1</td></tr>
+
+                            }
+                        }
+                    }
+
                     
-                }
-                else
+                
+                   
+                    else
                 {
                     <tr><td colspan="6"><strong>Hittade ingen person</strong></td></tr>
                 }
@@ -32,6 +44,8 @@
         </table>
     </div>
     </div>
+    <i class="bi bi-pen"></i>
+
 <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
 </div>
 @code {
@@ -43,10 +57,9 @@
     {
         var person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
         osa.Email = person.Email;
-        osa.Name = person.Name; 
+        osa.Name = person.Name;
         var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();
-        //var allergies = rwsp.Allergies;
-        //var test = "ertg"; 
+        osa.Allergies2 = rwsp.Allergies.ToList(); 
         
 
     }
