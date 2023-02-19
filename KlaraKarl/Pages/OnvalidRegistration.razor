@@ -1,9 +1,8 @@
 ﻿@page "/registrerad/{email}"
 @inject Data.KlarakarldbContext service
 
-<div class="mycontainer">
+<div class="container mycontainer">
     <h1>Anmälan mottagen för @osa.Name </h1>
-<h1>Din anmälan är mottagen</h1>
 <p>Här är dina uppgifter</p>
 <div class="container">
     <div class="row bg-light">
@@ -42,11 +41,12 @@
     Osaformmodel osa = new Osaformmodel();
     protected override void OnInitialized()
     {
-        var person = service.People.Where(a => a.Email == email).Single();
+        var person = service.People.Where(a => a.Email == email).FirstOrDefault();
+        //var person = service.People.OrderByDescending(a => a.CreatedAt).FirstOrDefault();
+
         osa.Email = person.Email;
         osa.Name = person.Name; 
-        var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).Single();
-        osa.Otherinfo = rwsp.Otherinfo;
+        var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();
         //var allergies = rwsp.Allergies;
         //var test = "ertg"; 
         
