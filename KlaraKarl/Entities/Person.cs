@@ -13,5 +13,7 @@ public partial class Person
 
     public long? RwspId { get; set; }
 
+    public DateTime CreatedAt { get; set; } 
+
     public virtual Rwsp? Rwsp { get; set; }
 }

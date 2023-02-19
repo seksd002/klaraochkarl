@@ -41,9 +41,7 @@
     Osaformmodel osa = new Osaformmodel();
     protected override void OnInitialized()
     {
-        var person = service.People.Where(a => a.Email == email).FirstOrDefault();
-        //var person = service.People.OrderByDescending(a => a.CreatedAt).FirstOrDefault();
-
+        var person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
         osa.Email = person.Email;
         osa.Name = person.Name; 
         var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();

@@ -122,10 +122,10 @@
             {
                 Name = NewPerson.Name,
                 Email = NewPerson.Email,
+                CreatedAt = DateTime.Now
             };
         var rwsp = new Rwsp
             {
-                Otherinfo = NewPerson.Otherinfo,
             };
         rwsp.People.Add(person);
         var allergy = new Allergy

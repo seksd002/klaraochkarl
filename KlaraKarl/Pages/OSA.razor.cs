@@ -12,7 +12,6 @@ namespace KlaraKarl.Pages
         [StringLength(50, ErrorMessage = "För långt namn kan endast innehålla 50 tecken.")]
         public string Email { get; set; }
         [StringLength(1000, ErrorMessage = "För långt max 1000 tecken.")]
-        public string Otherinfo { get; set; }
 
         public string customAllergy { get; set; }
         public List <String> Allergies { get; set; }
