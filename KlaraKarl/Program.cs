@@ -1,3 +1,6 @@
+using Blazorise;
+using Blazorise.Bootstrap;
+using Blazorise.Icons.FontAwesome;
 using KlaraKarl.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,8 +11,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<KlarakarldbContext>(options =>
 {
+
     options.UseSqlite("Data Source = Klarakarl.db");
 });
+builder.Services
+    .AddBlazorise(options =>
+    {
+        options.Immediate = true;
+    })
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
+
 
 var app = builder.Build();
 

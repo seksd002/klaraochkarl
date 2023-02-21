@@ -1,0 +1,138 @@
+﻿@page "/registreradtest/"
+@inject Data.KlarakarldbContext service
+
+<div class="container mycontainer">
+    <!-- Modal -->
+    @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">*@
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1>Anmälan mottagen för @osa.Name </h1>
+<p>Här är dina uppgifter</p>
+   <div class="mb-3">
+        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@ShowModal"> Redigera uppgifter</i>
+          
+
+    </div>
+<div class="container">
+    <div class="row bg-light">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Namn</th>
+                    <th>E-post</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @if (osa != null)
+                    {
+
+                        <tr>
+                            <td>@osa.Name</td>
+                            <td>@osa.Email</td>
+
+                        </tr>
+                        @if (osa.Allergies2.Count > 1)
+                        {
+                            <tr><td colspan="6"><strong>Specialkost</strong></td></tr>
+                            @foreach (var item in osa.Allergies2)
+                            {
+                                <tr><td colspan="6">@item.Allergy1</td></tr>
+
+                            }
+                        }
+                    }
+
+                    
+                
+                   
+                    else
+                {
+                    <tr><td colspan="6"><strong>Hittade ingen person</strong></td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    </div>
+<p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
+</div>
+
+<Modal @ref="modalRef">
+    <ModalContent Centered>
+        <ModalHeader>
+            <ModalTitle>Redigera uppgifter</ModalTitle>
+            <CloseButton />
+        </ModalHeader>
+        <ModalBody>
+            <Field>
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit Text="@osa.Name" />
+            </Field>
+            <Field>
+                <FieldLabel>Surname</FieldLabel>
+                <TextEdit Text="@osa.Email" />
+            </Field>
+          @*  @foreach(String allerg in osa.Allergies)
+            {
+                <Field Horizontal>
+                    <FieldLabel ColumnSize="ColumnSize.Is2">@allerg</FieldLabel>
+                    <FieldBody ColumnSize="ColumnSize.Is10" Margin="Margin.IsAuto">
+                        <Check TValue="bool" />
+                    </FieldBody>
+                </Field>
+            }*@
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Secondary" Clicked="@HideModal">Stäng</Button>
+            <Button Color="Color.Primary" Clicked="@HideModal">Spara ändringar</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+@code {
+    //[Parameter]
+    //public string? email { get; set; }
+
+    Osaformmodel osa = new Osaformmodel();
+    protected override void OnInitialized()
+    {
+        var person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == "erger@hotmail.com").FirstOrDefault();
+        osa.Email = person.Email;
+        osa.Name = person.Name;
+        var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();
+        osa.Allergies2 = rwsp.Allergies.ToList(); 
+        
+
+    }
+  
+
+    public void sendmail()
+    {
+        //EmailClient emailClient = new EmailClient(connectionString);
+    }
+    // reference to the modal component
+    private Modal modalRef;
+
+    private Task ShowModal()
+    {
+        return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+        return modalRef.Hide();
+    }
+}

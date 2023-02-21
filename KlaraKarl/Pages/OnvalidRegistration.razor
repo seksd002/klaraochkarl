@@ -1,9 +1,15 @@
 ﻿@page "/registrerad/{email}"
+@using KlaraKarl.Entities;
 @inject Data.KlarakarldbContext service
 
 <div class="container mycontainer">
     <h1>Anmälan mottagen för @osa.Name </h1>
 <p>Här är dina uppgifter</p>
+    <div class="mb-3">
+        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@ShowModal"> Redigera uppgifter</i>
+
+
+    </div>
 <div class="container">
     <div class="row bg-light">
         <table class="table table-bordered">
@@ -44,29 +50,102 @@
         </table>
     </div>
     </div>
-    <i class="bi bi-pen"></i>
 
+    <Modal @ref="modalRef">
+        <ModalContent Centered>
+            <ModalHeader>
+                <ModalTitle>Redigera uppgifter</ModalTitle>
+                <CloseButton />
+            </ModalHeader>
+            <ModalBody>
+                <Field>
+                    <FieldLabel>Name</FieldLabel>
+                    <TextEdit @bind-text="@osa.Name" />
+                </Field>
+                <Field>
+                    <FieldLabel>Surname</FieldLabel>
+                    <TextEdit @bind-text="@osa.Email" />
+                </Field>
+                  @foreach(Allergy allerg in osa.Allergies2)
+                {
+                <Field Horizontal>
+                        <FieldLabel ColumnSize="ColumnSize.Is2" >@allerg.Allergy1</FieldLabel>
+                <FieldBody ColumnSize="ColumnSize.Is10" Margin="Margin.IsAuto">
+                            <Check TValue="bool" Checked="@allerg.checkbox" CheckedChanged="@OnAllergyChanged(true,@allerg)" />
+                </FieldBody>
+                </Field>
+                 
+                }
+                 <Field>
+                    <FieldLabel>Annan specialkost</FieldLabel>
+                    <TextEdit Placeholder="Fyll i kompletterande specialkost..." />
+
+                </Field>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary" Clicked="@HideModal">Stäng</Button>
+                <Button Color="Color.Primary" Clicked="@SaveChangesOnEdit">Spara ändringar</Button>
+            </ModalFooter>
+        </ModalContent>
+    </Modal>
 <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
 </div>
 @code {
     [Parameter]
     public string? email { get; set; }
-
+    private Person person { get; set; }
     Osaformmodel osa = new Osaformmodel();
+    private void UpdateAllergies(ChangeEventArgs e, Allergy allergy)
+    {
+        if ((bool)e.Value)
+        {
+            osa.Allergies2.Add(allergy);
+        }
+        else
+        {
+            osa.Allergies2.Remove(allergy);
+        }
+    }
+    void OnAllergyChanged(bool value, Allergy allerg)
+    {
+        Console.WriteLine(value);
+        if (value)
+        {
+            
+        }
+    }
     protected override void OnInitialized()
     {
-        var person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
+        person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
         osa.Email = person.Email;
         osa.Name = person.Name;
         var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();
         osa.Allergies2 = rwsp.Allergies.ToList(); 
-        
+
 
     }
-  
+
 
     public void sendmail()
     {
         //EmailClient emailClient = new EmailClient(connectionString);
+    }
+    private Modal modalRef;
+
+    private Task ShowModal()
+    {
+        return modalRef.Show();
+    }
+
+    private Task HideModal()
+    {
+        return modalRef.Hide();
+    }
+    private void SaveChangesOnEdit()
+    {
+        person.Name = osa.Name;
+        person.Email = osa.Email;
+        service.SaveChanges();
+        modalRef.Hide();
     }
 }

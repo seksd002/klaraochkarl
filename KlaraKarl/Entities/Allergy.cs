@@ -9,6 +9,8 @@ public partial class Allergy
 
     public string? Allergy1 { get; set; }
 
+    public bool checkbox { get; set; } = true;
+
     public long? RwspId { get; set; }
 
     public virtual Rwsp? Rwsp { get; set; }

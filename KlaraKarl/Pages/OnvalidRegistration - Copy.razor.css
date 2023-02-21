@@ -1,0 +1,14 @@
+﻿@media only screen and (max-width: 577px) {
+    .mycontainer {
+        margin-top: 90px;
+    }
+}
+.mycontainer {
+    margin-top: 2vw;
+}
+
+@media only screen and (max-width: 577px) {
+    .mycontainer {
+        margin-top: 90px;
+    }
+}
