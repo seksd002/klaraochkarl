@@ -95,19 +95,8 @@
             IsHidden = true; 
         }
     }
-    //List<string> allergylist = new List<string> { "Mjölk", "Laktos", "Ägg" };
-
     string? email; 
-    //List<Person> Persons = new List<Person>();
-    private async Task GetValidPersonsAsync(String email)
-    {
-        //Persons = await service.GetValidPersonsAsync(email);
-        //Console.WriteLine(Persons); 
-    }
-    private async Task SetPersonForAccept(Person person)
-    {
-        //await service.SetPersonForAccept(person);
-    }
+
     public Osaformmodel NewPerson { get; set; } = new Osaformmodel();
     string LastSubmitResult;
 
@@ -152,13 +141,5 @@
         LastSubmitResult = "OnInvalidSubmit was executed";
     }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    await RefreshPersons();
-    //}
-    //private async Task RefreshPersons()
-    //{
-    //    Persons = await service.GetPersonAsync();
-    //}
 }
 
