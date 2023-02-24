@@ -24,7 +24,7 @@
     <h1>Anmälan mottagen för @osa.Name </h1>
 <p>Här är dina uppgifter</p>
    <div class="mb-3">
-        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@ShowModal"> Redigera uppgifter</i>
+        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" > Redigera uppgifter</i>
           
 
     </div>
@@ -71,37 +71,7 @@
 <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
 </div>
 
-<Modal @ref="modalRef">
-    <ModalContent Centered>
-        <ModalHeader>
-            <ModalTitle>Redigera uppgifter</ModalTitle>
-            <CloseButton />
-        </ModalHeader>
-        <ModalBody>
-            <Field>
-                <FieldLabel>Name</FieldLabel>
-                <TextEdit Text="@osa.Name" />
-            </Field>
-            <Field>
-                <FieldLabel>Surname</FieldLabel>
-                <TextEdit Text="@osa.Email" />
-            </Field>
-          @*  @foreach(String allerg in osa.Allergies)
-            {
-                <Field Horizontal>
-                    <FieldLabel ColumnSize="ColumnSize.Is2">@allerg</FieldLabel>
-                    <FieldBody ColumnSize="ColumnSize.Is10" Margin="Margin.IsAuto">
-                        <Check TValue="bool" />
-                    </FieldBody>
-                </Field>
-            }*@
-        </ModalBody>
-        <ModalFooter>
-            <Button Color="Color.Secondary" Clicked="@HideModal">Stäng</Button>
-            <Button Color="Color.Primary" Clicked="@HideModal">Spara ändringar</Button>
-        </ModalFooter>
-    </ModalContent>
-</Modal>
+
 @code {
     //[Parameter]
     //public string? email { get; set; }
@@ -124,15 +94,6 @@
         //EmailClient emailClient = new EmailClient(connectionString);
     }
     // reference to the modal component
-    private Modal modalRef;
 
-    private Task ShowModal()
-    {
-        return modalRef.Show();
-    }
 
-    private Task HideModal()
-    {
-        return modalRef.Hide();
-    }
 }

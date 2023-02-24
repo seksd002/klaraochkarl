@@ -10,4 +10,5 @@ public partial class Rwsp
     public virtual ICollection<Allergy> Allergies { get; } = new List<Allergy>();
 
     public virtual ICollection<Person> People { get; } = new List<Person>();
+
 }

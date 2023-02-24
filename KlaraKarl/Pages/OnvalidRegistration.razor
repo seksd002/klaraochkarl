@@ -3,15 +3,15 @@
 @inject Data.KlarakarldbContext service
 
 <div class="container mycontainer">
-    <h1>Anmälan mottagen för @osa.Name </h1>
+    <h1>Anmälan mottagen för @person.Name</h1>
 <p>Här är dina uppgifter</p>
     <div class="mb-3">
-        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@ShowModal"> Redigera uppgifter</i>
+        <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@toggleform" > Redigera uppgifter</i>
 
 
     </div>
 <div class="container">
-    <div class="row bg-light">
+    <div class="row bg-light" hidden="@InfoIsHidden">
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
@@ -20,27 +20,24 @@
                 </tr>
             </thead>
             <tbody>
-                    @if (osa != null)
+                    @if (person != null)
                     {
 
                         <tr>
-                            <td>@osa.Name</td>
-                            <td>@osa.Email</td>
+                            <td>@person.Name</td>
+                            <td>@person.Email</td>
 
                         </tr>
-                        @if (osa.Allergies2.Count > 1)
+                        @if (person.Rwsp.Allergies.Count > 1)
                         {
                             <tr><td colspan="6"><strong>Specialkost</strong></td></tr>
-                            @foreach (var item in osa.Allergies2)
+                            @foreach (var item in person.Rwsp.Allergies)
                             {
                                 <tr><td colspan="6">@item.Allergy1</td></tr>
 
                             }
                         }
                     }
-
-
-
 
                     else
                     {
@@ -49,169 +46,171 @@
                 </tbody>
             </table>
         </div>
+        <EditForm Model=@person OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted class="well form-horizontal" hidden="@FormIsHidden">
+
+
+            <!-- Form Name -->
+            <legend>Ändra uppgifter!</legend>
+            <DataAnnotationsValidator />
+            <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
+            <!-- Text input-->
+            <div class="form-group">
+                <label for="Name">För och efternamn</label>
+                <InputText @bind-Value=person.Name class="form-control" id="SurName" placeholder="För och efternamn" />
+                <ValidationMessage For="@(() => person.Name)" />
+            </div>
+            <div class="form-group">
+                <label for="Name">E-post</label>
+                <input type="email" @bind="@person.Email" class="form-control" id="Email" placeholder="Ange din e-post" />
+                <ValidationMessage For="@(() => person.Email)" />
+
+            </div>
+            <div class="form-group">
+                @if (person.Rwsp.Allergies.Count > 1)
+                {
+                    <label>Specialkost (markera vid behov):</label>
+                    @foreach (var item in person.Rwsp.Allergies)
+                    {
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" name="Allergies" value="@item.Allergy1" checked="@person.Rwsp.Allergies.Contains(item)" @oninput="e => UpdateAllergies(e, item.Allergy1)" />
+
+                            <label class="form-check-label" for="check1">@item.Allergy1</label>
+                        </div>
+                    }
+                    <ValidationMessage For="@(() => person.Rwsp.Allergies)" />
+                }
+
+
+
+                <div class="form-group">
+                    <label for="Allergy">Komplettera med eventuell annan specialkost</label>
+                    <InputText @bind-Value=@customtempallergy class="form-control" id="Allergy" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Spara <span class="glyphicon glyphicon-send"></span></button>
+                </div>
+            </div>
+
+        </EditForm>
     </div>
 
-    <Modal @ref="modalRef">
-        <ModalContent Centered>
-            <ModalHeader>
-                <ModalTitle>Redigera uppgifter</ModalTitle>
-                <CloseButton />
-            </ModalHeader>
-            <ModalBody>
-                <Field>
-                    <FieldLabel>Name</FieldLabel>
-                    <TextEdit @bind-text="@osa.Name" />
-                </Field>
-                <Field>
-                    <FieldLabel>Surname</FieldLabel>
-                    <TextEdit @bind-text="@osa.Email" />
-                </Field>
-                @foreach (TempAllergies allerg in tempallergylist)
-                {
-
-
-                    <Field Horizontal>
-                        <FieldLabel ColumnSize="ColumnSize.Is2" >@allerg.allergyname</FieldLabel>
-                        <FieldBody ColumnSize="ColumnSize.Is10" Margin="Margin.IsAuto">
-                            <Check TValue="bool" Checked="@allerg.checkedallergy" @oninput="e => UpdateAllergies(e, allerg)" />
-                        </FieldBody>
-                    </Field>
-                }
-                <Field>
-                    <FieldLabel>Annan specialkost</FieldLabel>
-                    <TextEdit Placeholder="Fyll i kompletterande specialkost..." />
-
-                </Field>
-            </ModalBody>
-            <ModalFooter>
-                <Button Color="Color.Secondary" Clicked="@HideModal">Stäng</Button>
-                <Button Color="Color.Primary" Clicked="@SaveChangesOnEdit">Spara ändringar</Button>
-            </ModalFooter>
-        </ModalContent>
-    </Modal>
+    
     <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
+   
 </div>
 @code {
     [Parameter]
 
     public string? email { get; set; }
     private Person person { get; set; }
-    Osaformmodel osa = new Osaformmodel();
-    List<TempAllergies> tempallergylist = new List<TempAllergies>();
-    List<PossibleAllergy> allergylist = new List<PossibleAllergy>();
+    public string customtempallergy { get; set; }
+    List<PossibleAllergy> posallergylist = new List<PossibleAllergy>();
 
-    private void UpdateAllergies(ChangeEventArgs e, TempAllergies allergy)
+
+    //Osaformmodel osa = new Osaformmodel();
+
+    private void UpdateAllergies(ChangeEventArgs e, string allergy)
     {
-        //    if ((bool)e.Value)
-        //    {
-        //        osa.Allergies2.Add(allergy);
-        //    }
-        //    else
-        //    {
-        //        osa.Allergies2.Remove(allergy);
-        //    }
-        foreach (Allergy allerg in osa.Allergies2)
-        {
-            var match = allergylist
 
-    .FirstOrDefault(Allergy => Allergy.Allergy != null && Allergy.Allergy.Contains(allergy.allergyname));
-            if (match == null)
+        if (person.Rwsp.Allergies != null)
+        {
+            if ((bool)e.Value)
             {
-                //TempAllergies tempalerg = new TempAllergies();
-                //tempalerg.allergyname = allerg.Allergy1;
-                //tempalerg.checkedallergy = true;
-                //tempallergylist.Add(tempalerg);
-                Console.WriteLine("test");
-                Allergy newallerg = new Allergy();
-                newallerg.Allergy1 = allergy.allergyname;
-                osa.Allergies2.Add(newallerg); 
-            }
-
-        }
-
-
-    }
-    void OnAllergyChanged(bool value)
-    {
-        Console.WriteLine(value);
-        if (value)
-        {
-
-        }
-    }
-    protected override void OnInitialized()
-    {
-        person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
-        osa.Email = person.Email;
-        osa.Name = person.Name;
-        var rwsp = service.Rwsps.Where(a => a.Id == person.RwspId).FirstOrDefault();
-        osa.Allergies2 = rwsp.Allergies.ToList();
-        allergylist = service.PossibleAllergies
-            .OrderByDescending(x => x.Allergy == "Vegetariskt")
-            .ThenBy(x => x.Allergy)
-            .ToList();
-        foreach (PossibleAllergy possallerg in allergylist)
-        {
-            TempAllergies tempalerg = new TempAllergies();
-            tempalerg.allergyname = possallerg.Allergy;
-            var match = osa.Allergies2
-           
-    .FirstOrDefault(Allergy => Allergy.Allergy1 != null && Allergy.Allergy1.Contains(tempalerg.allergyname));
-            if (match != null)
-            {
-                tempalerg.checkedallergy = true;
+                Allergy allerg2 = new()
+                    {
+                        Allergy1 = allergy
+                    };
+                person.Rwsp.Allergies.Add(allerg2);
             }
             else
             {
-                tempalerg.checkedallergy = false;
-
+                var allerg = person.Rwsp.Allergies.Where(a => a != null && a.Allergy1 != null && a.Allergy1 == allergy).FirstOrDefault();
+                person.Rwsp.Allergies.Remove(allerg);
             }
-            tempallergylist.Add(tempalerg);
-         
+        }
+
+    }
+
+    protected override void OnInitialized()
+    {
+        person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
+        posallergylist = service.PossibleAllergies.ToList(); 
+        foreach(Allergy allerg in person.Rwsp.Allergies)
+        {
+            if(allerg != null)
+            {
+                //var match = posallergylist.Any(x => x.Allergy?.Contains(allerg.Allergy1));
+                var match = posallergylist.Any(x => x.Allergy?.Contains(allerg.Allergy1) == true);
+
+                if (!match)
+                {
+                    PossibleAllergy al = new PossibleAllergy
+                        {
+                            Allergy = allerg.Allergy1
+                        };
+                    posallergylist.Add(al);
+
+
+                }
+            }
+           
 
 
         }
-    //    foreach(Allergy allerg in osa.Allergies2)
-    //    {
-    //        var match = allergylist
-
-    //.FirstOrDefault(Allergy => Allergy.Allergy != null && Allergy.Allergy.Contains(allerg.Allergy1));
-    //        if (match == null)
-    //        {
-    //            TempAllergies tempalerg = new TempAllergies();
-    //            tempalerg.allergyname = allerg.Allergy1;
-    //            tempalerg.checkedallergy = true; 
-    //            tempallergylist.Add(tempalerg);
-
-
-    //        }
-            
-    //    }
+       
     }
 
 
     public void sendmail()
     {
-            //EmailClient emailClient = new EmailClient(connectionString);
-    }
-    private Modal modalRef;
-
-    private Task ShowModal()
-    {
-        return modalRef.Show();
+        //EmailClient emailClient = new EmailClient(connectionString);
     }
 
-    private Task HideModal()
+
+
+    private void ValidFormSubmitted(EditContext editContext)
     {
-        return modalRef.Hide();
-    }
-    private void SaveChangesOnEdit()
-    {
-        person.Name = osa.Name;
-        person.Email = osa.Email;
+
+        
+        if (customtempallergy != null)
+        {
+            Allergy tempallerg = new Allergy();
+            tempallerg.Allergy1 = customtempallergy;
+            person.Rwsp.Allergies.Add(tempallerg);
+
+        }
         service.SaveChanges();
-        modalRef.Hide();
+        toggleform();
+    } 
+
+    void InvalidFormSubmitted(EditContext editContext)
+    {
+        //LastSubmitResult = "OnInvalidSubmit was executed";
     }
+    private bool FormIsHidden = true;
+    private bool InfoIsHidden = false;
+    private void toggleform()
+    {
 
-
- }
+        if (this.FormIsHidden == true )
+        {
+            FormIsHidden = false;
+        }
+        else
+        {
+            FormIsHidden = true;
+        }
+        if (this.InfoIsHidden == true)
+        {
+            InfoIsHidden = false;
+        }
+        else
+        {
+            InfoIsHidden = true;
+        }
+    }
+}
