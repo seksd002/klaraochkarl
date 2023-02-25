@@ -72,7 +72,7 @@
 
   <ItemGroup>
     <None Update="Klarakarldb.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

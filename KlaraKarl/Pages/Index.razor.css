@@ -40,8 +40,12 @@
 }
 
 /*Small sized displays */
-
 @media only screen and (max-width: 577px) {
+    .mycontainer {
+        margin-top: 20vw;
+    }
+}
+/*@media only screen and (max-width: 577px) {
     .mycontainer {
         margin-top: 70px;
     }
@@ -81,7 +85,7 @@
         margin-top: -15vw;
         padding:40px;
     }
-}
+}*/
     /*table {
         border-collapse: collapse;
         margin: 0;

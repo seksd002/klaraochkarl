@@ -100,6 +100,13 @@
         transform: initial;
     
     }
+    .sm-fixed-top {
+        position: fixed;
+        top: 20vw;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+    }
     
  
 }
