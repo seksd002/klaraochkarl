@@ -5,12 +5,13 @@
 <PageTitle>Anmälan</PageTitle>
 
 <div class="container mycontainer">
-
-<EditForm Model=@NewPerson OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted class="well form-horizontal">
+    <h1 class="headline">ANMÄLAN</h1>
+    <p>Fyll i en anmälan per person</p>
+    <EditForm Model=@NewPerson OnValidSubmit=@ValidFormSubmitted OnInvalidSubmit=@InvalidFormSubmitted class="well form-horizontal" style="background-color:#fffcf4">
 
 
 <!-- Form Name -->
-<legend>Anmälan!</legend>
+
         <DataAnnotationsValidator />
         <Microsoft.AspNetCore.Components.Forms.ValidationSummary />
 <!-- Text input-->

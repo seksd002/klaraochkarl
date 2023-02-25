@@ -12,7 +12,7 @@
 <div class="container mycontainer">
     <h1>Tack för din anmälan @person.Name</h1>
       <p>Du kommer få ett mail med kompletterande uppgifter skickat till @person.Email inom kort håll utkik i din mailinkorg. (OBS kan hamna i skräpposten)</p>
-      <p>Fel mail? Skicka in en ny anmälan :)</p>
+    <p>Fel mail? Skicka in en ny anmälan bara &#128522</p>
 
 
 
@@ -188,7 +188,7 @@
     public void sendmail()
     {
         MailService mailservice = new MailService();
-        mailservice.sendmail(person.Email, person.Name, "Bröllop", $"<h1>Välkommen<h1> <br> <p>Hej {person.Name} du är välkommen på vårt bröllop...</p><br> <p>Blablablalbalbabala</p>");
+        mailservice.sendmail(person.Email, person.Name, "Bröllop", $"<h2>Tack för din anmälan!<h2> <br> <p>Det glädjer oss att du vill fira tillsammans med oss den 19 augusti.</p><br> <p>Varmt välkommen! Kram från Klara och Karl</p><b><p>OBS detta mail går ej att svara på </p>");
     }
 
 
