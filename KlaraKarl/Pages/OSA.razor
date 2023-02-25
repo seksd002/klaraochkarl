@@ -2,7 +2,7 @@
 @using KlaraKarl.Entities;
 @inject Data.KlarakarldbContext service
 @inject NavigationManager NavigationManager; 
-<PageTitle>OSA</PageTitle>
+<PageTitle>Anmälan</PageTitle>
 
 <div class="container mycontainer">
 
@@ -114,14 +114,18 @@
                 CreatedAt = DateTime.Now
             };
         var rwsp = new Rwsp
-            {
-            };
-        rwsp.People.Add(person);
-        var allergy = new Allergy
         {
-            Allergy1 = NewPerson.customAllergy
         };
-        rwsp.Allergies.Add(allergy);
+        rwsp.People.Add(person);
+        if(NewPerson.customAllergy != null)
+        {
+            var allergy = new Allergy
+                {
+                    Allergy1 = NewPerson.customAllergy
+                };
+            rwsp.Allergies.Add(allergy);
+        }
+       
         service.Rwsps.Add(rwsp);
         foreach(String allerg in NewPerson.Allergies)
         {

@@ -1,18 +1,28 @@
 ﻿@page "/registrerad/{email}"
+@implements IDisposable
+@inject NavigationManager NavigationManager
 @using KlaraKarl.Entities;
+@using KlaraKarl.Services;
 @inject Data.KlarakarldbContext service
 @inject IJSRuntime JSRuntime
 
 
+<PageTitle>Bekräftelse</PageTitle>
+
 <div class="container mycontainer">
-    <h1>Anmälan mottagen för @person.Name</h1>
-<p>Här är dina uppgifter</p>
+    <h1>Tack för din anmälan @person.Name</h1>
+      <p>Du kommer få ett mail med kompletterande uppgifter skickat till @person.Email inom kort håll utkik i din mailinkorg. (OBS kan hamna i skräpposten)</p>
+      <p>Fel mail? Skicka in en ny anmälan :)</p>
+
+
+
+@*<p>Här är dina uppgifter</p>
     <div class="mb-3">
         <i class="fa-solid fa-pencil" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="@toggleform" > Redigera uppgifter</i>
 
 
-    </div>
-<div class="container">
+    </div>*@
+@*<div class="container">
     <div class="row bg-light" hidden="@InfoIsHidden">
         <table class="table table-bordered">
             <thead class="thead-dark">
@@ -98,10 +108,9 @@
             </div>
 
         </EditForm>
-    </div>
+    </div>*@
 
     
-    <p>Du kommer få ett mail med kompletterande uppgifter inom kort håll utkik i din mailinkorg. </p>
    
 </div>
 @code {
@@ -143,8 +152,10 @@
     protected override void OnInitialized()
     {
         person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
-        posallergylist = service.PossibleAllergies.ToList(); 
-        foreach(Allergy allerg in person.Rwsp.Allergies)
+        posallergylist = service.PossibleAllergies.ToList();
+        //NavigationManager.LocationChanged += LocationChanged;
+        //base.OnInitialized();
+            foreach(Allergy allerg in person.Rwsp.Allergies)
         {
             if(allerg != null)
             {
@@ -162,17 +173,22 @@
 
                 }
             }
-           
+        
+        
+
 
 
         }
-       
+        sendmail();
+
+
     }
 
 
     public void sendmail()
     {
-        //EmailClient emailClient = new EmailClient(connectionString);
+        MailService mailservice = new MailService();
+        mailservice.sendmail(person.Email, person.Name, "Bröllop", $"<h1>Välkommen<h1> <br> <p>Hej {person.Name} du är välkommen på vårt bröllop...</p><br> <p>Blablablalbalbabala</p>");
     }
 
 
@@ -217,5 +233,17 @@
         {
             InfoIsHidden = true;
         }
+    }
+    void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        //sendmail();
+        string navigationMethod = e.IsNavigationIntercepted ? "HTML" : "code";
+        System.Diagnostics.Debug.WriteLine($"Notified of navigation via {navigationMethod} to {e.Location}");
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Unsubscribe from the event when our component is disposed
+        NavigationManager.LocationChanged -= LocationChanged;
     }
 }

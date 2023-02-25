@@ -1,10 +1,13 @@
 ﻿@inject Data.KlarakarldbContext service;
+@using Azure;
+@using Azure.Communication.Email;
+@using Azure.Communication.Email.Models;
 
 
 @code {
     public string bridename { get; set; }
     public string groomname { get; set; } 
-
+    
     protected override void OnInitialized()
     {
 
@@ -16,7 +19,7 @@
 }
 @page "/"
 
-<PageTitle>Klara & Karl - 2023-08-19</PageTitle>
+<PageTitle>Karl & Klara - 2023-08-19</PageTitle>
 
 <div class="container mycontainer">
     <div class="row">
