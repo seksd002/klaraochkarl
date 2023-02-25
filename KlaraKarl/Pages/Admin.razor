@@ -9,8 +9,8 @@
                 <tr>
                     <th>Förnamn</th>
                     <th>Email</th>
-                    <th>Registrerad</th>
-                    <th>Ta bort person</th>
+                    <th>Anmäld</th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -21,8 +21,11 @@
                         <tr>
                             <td>@person.Name</td>
                             <td>@person.Email</td>
-@*                            <td><button class="btn btn-danger" @onclick="(() => DeletePerson(product))">Delete</button></td>
-*@                        </tr>
+                            <td>@person.CreatedAt.ToShortDateString()</td>
+                            <td><button class="btn btn-danger">Ta bort</button></td>
+                            <td><button class="btn btn-danger">Redigera</button></td>
+
+                        </tr>
                     }
                 }
                 else
@@ -87,34 +90,5 @@
 
     }
      List<Person> Persons = new List<Person>();
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    await RefreshPersons();
-    //}
-    //private async Task RefreshPersons()
-    //{
-    //    //Persons = await service.GetPersonAsync();
-    //}
-    //public Person NewPerson { get; set; } = new Person();
-    //private async Task AddNewPerson()
-    //{
-    //    //await service.AddPersonAsync(NewPerson);
-    //    NewPerson = new Person();
-    //    await RefreshPersons();
-    //}
-    //Person UpdatePerson = new Person();
-    //private void SetPersonForUpdate(Person person)
-    //{
-    //    UpdatePerson = person;
-    //}
-    //private async Task UpdatePersonData()
-    //{
-    //    //await service.UpdatePersonAsync(UpdatePerson);
-    //    await RefreshPersons();
-    //}
-    //private async Task DeletePerson(Person person)
-    //{
-    //    //await service.DeletePersonAsync(person);
-    //    await RefreshPersons();
-    //}
+   
 }

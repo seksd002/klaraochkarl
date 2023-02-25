@@ -1,6 +1,8 @@
 ﻿@page "/registrerad/{email}"
 @using KlaraKarl.Entities;
 @inject Data.KlarakarldbContext service
+@inject IJSRuntime JSRuntime
+
 
 <div class="container mycontainer">
     <h1>Anmälan mottagen för @person.Name</h1>
@@ -69,12 +71,12 @@
                 @if (person.Rwsp.Allergies.Count > 1)
                 {
                     <label>Specialkost (markera vid behov):</label>
-                    @foreach (var item in person.Rwsp.Allergies)
+                    @foreach (var item in posallergylist)
                     {
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="Allergies" value="@item.Allergy1" checked="@person.Rwsp.Allergies.Contains(item)" @oninput="e => UpdateAllergies(e, item.Allergy1)" />
+                            <input type="checkbox" class="form-check-input" name="Allergies" value="@item.Allergy" checked="@person.Rwsp.Allergies.Any(x => x.Allergy1?.Contains(item.Allergy) == true)" @oninput="e => UpdateAllergies(e, item.Allergy)" />
 
-                            <label class="form-check-label" for="check1">@item.Allergy1</label>
+                            <label class="form-check-label" for="check1">@item.Allergy</label>
                         </div>
                     }
                     <ValidationMessage For="@(() => person.Rwsp.Allergies)" />
@@ -134,7 +136,10 @@
         }
 
     }
-
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    await JSRuntime.InvokeVoidAsync("hearts");
+    //}
     protected override void OnInitialized()
     {
         person = service.People.OrderByDescending(a => a.CreatedAt).Where(a => a.Email == email).FirstOrDefault();
