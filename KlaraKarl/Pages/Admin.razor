@@ -10,12 +10,12 @@
         <table class="table table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    <th>Förnamn</th>
-                    <th>Email</th>
-                    <th>Anmäld</th>
+                    <th onclick="@(() => sortcolumn("Name", namebool))">Namn <i class="fas fa-sort"></i></th>
+                    <th onclick="@(() => sortcolumn("Email", emailbool))">Email <i class="fas fa-sort"></i> </th>
+                    <th onclick="@(() => sortcolumn("CreatedAt", createdat))">Anmäld <i class="fas fa-sort"></i></th>
                     <th>Allergier</th>
                     <th>Radera</th>
-                    <th>Redigera</th>
+                    
                    
                 </tr>
             </thead>
@@ -34,8 +34,7 @@
                                 <td>@string.Join(", ", person.Rwsp.Allergies.Select(a => a.Allergy1))</td>
 
             }
-                            <td><button class="btn btn-danger">Ta bort</button></td>
-                            <td><button class="btn btn-danger">Redigera</button></td>
+                            <td><button class="btn btn-danger" @onclick="removeentity">Ta bort</button></td>
 
                         </tr>
                     }
@@ -100,11 +99,77 @@
 
     protected override void OnInitialized()
     {
-        persons = service.People.ToList();
-        var peopleWithRwspAndAllergies = service.People
+        updateview();
+    }
+    private void removeentity ()
+    {
+
+        service.Remove(this.persons.FirstOrDefault());
+        service.SaveChanges();
+        updateview();
+    }
+    private void editentity()
+    {
+        Console.WriteLine(this);
+    }
+    private void updateview()
+    {
+        //persons = service.People.ToList()
+        //var peopleWithRwspAndAllergies = service.People
+        persons = service.People
+       .Include(p => p.Rwsp)
+       .ThenInclude(r => r.Allergies)
+       .ToList();
+    }
+    private bool namebool { get; set; } = true;
+    private bool emailbool { get; set; } = true;
+    private bool createdat { get; set; } = true;
+
+    private void sortcolumn(string sortingvalue, bool ascorddesc)
+    {
+        //Console.WriteLine(this);
+        //persons = service.People
+        //.OrderBy(s => s.Name)
+        //.ToList();
+        @*var peopleWithRwspAndAllergies = service.People
         .Include(p => p.Rwsp)
         .ThenInclude(r => r.Allergies)
-        .ToList();
+        .OrderBy(s => s.Name)
+        .ToList();*@
+        switch (sortingvalue, ascorddesc)
+        {
+            case ("Name" , true) :
+                persons = service.People.OrderBy(s => s.Name).ToList();
+                namebool = false; 
+                break;
+            case ("Name", false):
+                persons = service.People.OrderByDescending(s => s.Name).ToList();
+                namebool = true;
+                break;
+            case ("Email", true):
+                persons = service.People.OrderBy(s => s.Email).ToList();
+                emailbool = false;
+                break;
+            case ("Email", false):
+                persons = service.People.OrderByDescending(s => s.Email).ToList();
+                emailbool = true;
+                break;
+            case ("CreatedAt", true):  
+                persons = service.People.OrderBy(s => s.CreatedAt).ToList();
+                createdat = false;
+                break;
+            case ("CreatedAt", false):
+                persons = service.People.OrderByDescending(s => s.CreatedAt).ToList();
+                createdat = true;
+                break;
+            // Lägg till fler cases efter behov för att sortera efter andra kolumner
+            default:
+                persons = service.People.OrderBy(s => s.Name).ToList(); // Standard sortering
+                break;
+        }
+
+
+
     }
-   
+
 }
