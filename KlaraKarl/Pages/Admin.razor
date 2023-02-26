@@ -1,6 +1,7 @@
 ﻿@layout AdminLayout
 @page "/admin"
 @using KlaraKarl.Entities;
+@using Microsoft.EntityFrameworkCore;
 @inject Data.KlarakarldbContext service
 <PageTitle>Admin</PageTitle>
 
@@ -12,18 +13,27 @@
                     <th>Förnamn</th>
                     <th>Email</th>
                     <th>Anmäld</th>
+                    <th>Allergier</th>
+                    <th>Radera</th>
+                    <th>Redigera</th>
                    
                 </tr>
             </thead>
             <tbody>
-                @if (Persons.Any())
+                @if (persons.Any())
                 {
-                    @foreach (var person in Persons)
+                    @foreach (var person in persons)
                     {
                         <tr>
                             <td>@person.Name</td>
                             <td>@person.Email</td>
                             <td>@person.CreatedAt.ToShortDateString()</td>
+                            @if (person.Rwsp != null)
+            {
+            
+                                <td>@string.Join(", ", person.Rwsp.Allergies.Select(a => a.Allergy1))</td>
+
+            }
                             <td><button class="btn btn-danger">Ta bort</button></td>
                             <td><button class="btn btn-danger">Redigera</button></td>
 
@@ -85,12 +95,16 @@
     </div>*@
 
 @code {
+    List<Person> persons = new List<Person>();
+    private Person person { get; set; }
+
     protected override void OnInitialized()
     {
-        Persons = service.People.ToList();
-
-
+        persons = service.People.ToList();
+        var peopleWithRwspAndAllergies = service.People
+        .Include(p => p.Rwsp)
+        .ThenInclude(r => r.Allergies)
+        .ToList();
     }
-     List<Person> Persons = new List<Person>();
    
 }

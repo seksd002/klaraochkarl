@@ -15,5 +15,5 @@ public partial class Person
 
     public DateTime CreatedAt { get; set; } 
 
-    public virtual Rwsp? Rwsp { get; set; }
+    public virtual Rwsp Rwsp { get; set; }
 }
