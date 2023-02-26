@@ -67,14 +67,14 @@
     }
     .togglericon {
         display:block;
-        width:75vw;
+        width:25vw;
         height:auto;
         /*position:relative;*/
         /* margin-top:-140px;*/
         /*float:right;*/
         position: fixed;
-        margin-top:-45vw;
-        margin-left:45vw;
+        margin-top:-15vw;
+        margin-left:71vw;
     }
     .divClass{
         display: block;
