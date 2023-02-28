@@ -1,0 +1,143 @@
+﻿/*@keyframes heart-rain {
+    0% {
+        transform: translateY(-100px) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(720deg) scale(2);
+        opacity: 1;
+    }
+}*/
+
+/*.heart {
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 50px;*/ /* ändra storlek här */
+    /*height: 50px;*/ /* ändra storlek här */
+    /*position: fixed;
+    left: 50%;
+    top: 0%;
+    transform: translate(-50%, -50%);
+}*/
+/*.hearts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));*/ /* ändra bredden här */
+    /*gap: 7vw;*/ /* ändra gap mellan hjärtan här */
+    /*justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+   
+}
+
+.heart {
+   
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 100%;*/ /* ändra bredden här */
+    /*height: 100%;*/ /* ändra höjden här */
+/*}*/
+/*.hearts-container {
+    position: relative;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.heart {
+    position: absolute;
+    top: 0;
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 100%;*/ /* ändra bredden här */
+    /*height: 100%;*/ /* ändra höjden här */
+/*}*/
+/*.hearts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));*/ /* ändra bredden här */
+    /*gap: 7vw;*/ /* ändra gap mellan hjärtan här */
+    /*justify-content: center;
+    align-items: start;
+    height: 50vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.heart {
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 100%;*/ /* ändra bredden här */
+    /*height: 100%;*/ /* ändra höjden här */
+/*}
+
+@keyframes heart-rain {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}*/
+.hearts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* ändra bredden här */
+    gap: 7vw; /* ändra gap mellan hjärtan här */
+    justify-content: center;
+    align-items: start; /* sätter hjärtan högst upp */
+    height: 50vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.heart {
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 100%; /* ändra bredden här */
+    height: 100%; /* ändra höjden här */
+    position: relative; /* lägger till position: relative */
+    left: calc(-50% + 50px); /* justera x-position */
+    top: calc(-50% + 50px); /* justera y-position */
+}
+
+    /*.heart:nth-child(1) {
+        grid-row: 1;
+        animation-delay: 0s;*/ /* justera fördröjning för varje hjärta */
+        /*transform: rotate(25deg);*/ /* lägg till lite slumpmässig rotation */
+    /*}*/
+
+    /*.heart:nth-child(2) {
+        grid-row: 3;
+        animation-delay: 0.5s;*/ /* justera fördröjning för varje hjärta */
+        /*transform: rotate(-15deg);*/ /* lägg till lite slumpmässig rotation */
+    /*}
+
+    .heart:nth-child(3) {
+        grid-row: 5;
+        animation-delay: 1s;*/ /* justera fördröjning för varje hjärta */
+        /*transform: rotate(10deg);*/ /* lägg till lite slumpmässig rotation */
+    /*}
+
+    .heart:nth-child(4) {
+        grid-row: 7;
+        animation-delay: 1.5s;*/ /* justera fördröjning för varje hjärta */
+        /*transform: rotate(-5deg);*/ /* lägg till lite slumpmässig rotation */
+    /*}*/
+
+/* Lägg till fler "nth-child" regler för att placera hjärtan i fler rader */
+/* Anpassa "grid-row" värdet för att justera höjden på hjärtat */
+
+@keyframes heart-rain {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+
+

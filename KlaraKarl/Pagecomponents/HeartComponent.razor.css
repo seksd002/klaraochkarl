@@ -1,0 +1,29 @@
+﻿.hearts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* ändra bredden här */
+    gap: 7vw; /* ändra gap mellan hjärtan här */
+    justify-content: center;
+    align-items: start; /* sätter hjärtan högst upp */
+    height: 50vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.heart {
+    animation: heart-rain 5s linear infinite;
+    fill: red;
+    width: 100%; /* ändra bredden här */
+    height: 100%; /* ändra höjden här */
+    position: relative; /* lägger till position: relative */
+    left: calc(-50% + 50px); /* justera x-position */
+    top: calc(-50% + 50px); /* justera y-position */
+}
+@keyframes heart-rain {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
+}
