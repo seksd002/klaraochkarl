@@ -7,12 +7,13 @@
 @code {
     public string bridename { get; set; }
     public string groomname { get; set; } 
-    
+
     protected override void OnInitialized()
     {
-
         bridename = service.Participants.Where(a => a.ParticipantRoleId == 1).Single().ParticipantFirstname.ToString();
         groomname = service.Participants.Where(a => a.ParticipantRoleId == 2).Single().ParticipantFirstname.ToString();
+        
+
 
     }
 

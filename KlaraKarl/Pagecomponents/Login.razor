@@ -1,0 +1,50 @@
+﻿@using KlaraKarl.Authentication
+@inject IJSRuntime js
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager; 
+@layout AdminLayout
+@inject Data.KlarakarldbContext service;
+<div class="container h-80" style="margin-top: 200px;">
+<div class="row align-items-center h-100">
+    <div class="col-3 mx-auto">
+        <div class="text-center">
+            <img id="profile-img" class="rounded-circle profile-img-card img-fluid" src="https://i.imgur.com/6b6psnA.png" />
+            <p id="profile-name" class="profile-name-card"></p>
+
+
+                    <input @bind="@model.UserName" type="text" name="user" id="userName" class="form-control form-group" placeholder="Namn" required autofocus>
+                 <input @bind="@model.Password" name="password" id="inputPassword" class="form-control form-group" placeholder="Lösenord" >
+
+                    <button @onclick="Authenticate" class="btn btn-lg btn-primary btn-block btn-signin">Gå vidare</button>
+        </div>
+    </div>
+</div>
+</div>
+@code{
+    private Model model = new Model();
+
+    private class Model
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
+
+    private async Task Authenticate()
+    {
+            var userAccount = service.Users.Where(a => a.Name == model.UserName).FirstOrDefault();
+            if(userAccount == null || userAccount.Password != model.Password)
+            {
+                await js.InvokeVoidAsync("alert", "FEL FEL FEL användarnamn eller lösenord");
+                return; 
+            }
+            var customAuthStateProvider = (CustomAuthentificationStateProvider)authStateProvider;
+            var usersession = new UserSession(userAccount.Name, userAccount.Role);
+            await customAuthStateProvider.UpdateAuthentificationState(usersession);
+
+            navManager.NavigateTo("/admin", true);
+
+
+    
+    }
+   
+}

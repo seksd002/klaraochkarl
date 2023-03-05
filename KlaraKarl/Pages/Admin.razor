@@ -4,49 +4,75 @@
 @using Microsoft.EntityFrameworkCore;
 @inject Data.KlarakarldbContext service
 <PageTitle>Admin</PageTitle>
+<AuthorizeView>
+    <Authorized>
+        
+        <div class="container mycontainer ">
+            <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Admin</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Sök på namn" aria-label="Search">
+            <div class="navbar-nav">
+                <div class="nav-item text-nowrap">
+                        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">@loggedinuser.Name</div>
+                        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">@loggedinuser.Role</div>
 
-<div class="container mycontainer ">
-    <div class="row bg-light">
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th onclick="@(() => sortcolumn("Name", namebool))">Namn <i class="fas fa-sort"></i></th>
-                    <th onclick="@(() => sortcolumn("Email", emailbool))">Email <i class="fas fa-sort"></i> </th>
-                    <th onclick="@(() => sortcolumn("CreatedAt", createdat))">Anmäld <i class="fas fa-sort"></i></th>
-                    <th>Allergier</th>
-                    <th>Radera</th>
-                    
-                   
-                </tr>
-            </thead>
-            <tbody>
-                @if (persons.Any())
-                {
-                    @foreach (var person in persons)
-                    {
+                        
+                </div>
+            </div>
+        </header>
+            <div class="row bg-light">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>@person.Name</td>
-                            <td>@person.Email</td>
-                            <td>@person.CreatedAt.ToShortDateString()</td>
-                            @if (person.Rwsp != null)
-            {
-            
-                                <td>@string.Join(", ", person.Rwsp.Allergies.Select(a => a.Allergy1))</td>
+                            <th onclick="@(() => sortcolumn("Name", namebool))">Namn <i class="fas fa-sort"></i></th>
+                            <th onclick="@(() => sortcolumn("Email", emailbool))">Email <i class="fas fa-sort"></i> </th>
+                            <th onclick="@(() => sortcolumn("CreatedAt", createdat))">Anmäld <i class="fas fa-sort"></i></th>
+                            <th>Allergier</th>
+                            <th>Radera</th>
 
-            }
-                            <td><button class="btn btn-danger" @onclick="removeentity">Ta bort</button></td>
 
                         </tr>
-                    }
-                }
-                else
-                {
-                    <tr><td colspan="6"><strong>Hittade ingen person</strong></td></tr>
-                }
-            </tbody>
-        </table>
-    </div>
-    </div>
+                    </thead>
+                    <tbody>
+                        @if (persons.Any())
+                        {
+                            @foreach (var person in persons)
+                            {
+                                <tr>
+                                    <td>@person.Name</td>
+                                    <td>@person.Email</td>
+                                    <td>@person.CreatedAt.ToShortDateString()</td>
+                                    @if (person.Rwsp != null)
+                                    {
+
+                                        <td>@string.Join(", ", person.Rwsp.Allergies.Select(a => a.Allergy1))</td>
+
+                                    }
+                                    <td><button class="btn btn-danger" @onclick="removeentity">Ta bort</button></td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6"><strong>Hittade ingen person</strong></td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+       
+    </Authorized>
+    <NotAuthorized>
+      <KlaraKarl.Pagecomponents.Login />
+    </NotAuthorized>
+</AuthorizeView>
+
+
    
     @*<div class="row m-5">
         <div class="col-5 bg-light m-2 justify-content-start">
@@ -94,12 +120,20 @@
     </div>*@
 
 @code {
+    [CascadingParameter]
+    private Task <AuthenticationState> authenticationState { get; set; }
+    private User loggedinuser = new User(); 
     List<Person> persons = new List<Person>();
     private Person person { get; set; }
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        updateview();
+        var authState = await authenticationState;
+
+        loggedinuser.Name = authState.User.Identity.Name;
+        loggedinuser.Role = authState.User.Claims.Skip(1).FirstOrDefault()?.Value;
+    
+    updateview();
     }
     private void removeentity ()
     {
