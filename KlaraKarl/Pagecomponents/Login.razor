@@ -31,7 +31,7 @@
 
     private async Task Authenticate()
     {
-            var userAccount = service.Users.Where(a => a.Name == model.UserName).FirstOrDefault();
+            var userAccount = service.Users.Where(a => a.Name == model.UserName.ToLower()).FirstOrDefault();
             if(userAccount == null || userAccount.Password != model.Password)
             {
                 await js.InvokeVoidAsync("alert", "FEL FEL FEL användarnamn eller lösenord");

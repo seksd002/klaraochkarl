@@ -3,26 +3,32 @@
 @using KlaraKarl.Entities;
 @using Microsoft.EntityFrameworkCore;
 @inject Data.KlarakarldbContext service
+@inject IJSRuntime js
 <PageTitle>Admin</PageTitle>
 <AuthorizeView>
     <Authorized>
         
         <div class="container mycontainer ">
+           
             <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Admin</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Sök på namn" aria-label="Search">
-            <div class="navbar-nav">
+@*            <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Sök på namn" aria-label="Search">
+                
+*@            
+<button @onclick="copymail">Kopiera maillista</button>
+<div class="navbar-nav">
                 <div class="nav-item text-nowrap">
-                        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">@loggedinuser.Name</div>
+                        <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text- capitalize">@loggedinuser.Name</div>
                         <div class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">@loggedinuser.Role</div>
 
                         
                 </div>
             </div>
         </header>
+            <br />
             <div class="row bg-light">
                 <table class="table table-bordered">
                     <thead class="thead-dark">
@@ -204,6 +210,18 @@
 
 
 
+
+    }
+    private async Task copymail()
+    {
+
+        var emails = persons.Select(x => x.Email).ToList();
+        var emaillist = string.Join(";", emails);
+        await js.InvokeVoidAsync("clipboardCopy.copyText", emaillist);
+
+
+
+        
     }
 
 }
