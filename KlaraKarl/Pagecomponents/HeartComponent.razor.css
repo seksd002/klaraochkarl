@@ -1,42 +1,13 @@
 ﻿.hearts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* ändra bredden här */
-    gap: 7vw; /* ändra gap mellan hjärtan här */
-    justify-content: center;
-    align-items: start; /* sätter hjärtan högst upp */
-    height: 50vh;
-    padding: 20px;
-    box-sizing: border-box;
+    position: relative;
+    height: 100vh;
 }
 
 .heart {
-    animation: heart-rain 5s linear infinite;
+    position: absolute;
+    top: 0;
+    left: 0;
     fill: red;
-    width: 100%; /* ändra bredden här */
-    height: 100%; /* ändra höjden här */
-    position: relative; /* lägger till position: relative */
-    left: calc(-50% + 50px); /* justera x-position */
-    top: calc(-50% + 50px); /* justera y-position */
-}
-@keyframes heart-rain {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    100% {
-        transform: translateY(100vh);
-    }
-}
-@media only screen and (max-width: 768px) {
-    .hearts-container {
-        grid-template-columns: repeat(auto-fit, minmax(1vw, 1fr));
-        gap: 5vw;
-    }
-
-    .heart {
-        width: 30px;
-        height: 30px;
-        left: calc(-50% + 15px);
-        top: calc(-50% + 15px);
-    }
+    width: 30px;
+    height: 30px;
 }

@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\OnvalidRegistration - Copy.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
     <Content Update="wwwroot\fonts\GlacialIndifference-Regular.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
