@@ -14,6 +14,9 @@ namespace KlaraKarl.Pages
         [StringLength(1000, ErrorMessage = "För långt max 1000 tecken.")]
 
         public string customAllergy { get; set; }
+
+        [Required(ErrorMessage = "Telefonnummer kan innehålla max 50 tecken")]
+        public string PhoneNumber { get; set; } 
         public List <String> Allergies { get; set; }
         public List<Allergy> Allergies2 { get; set; }
         public Osaformmodel()

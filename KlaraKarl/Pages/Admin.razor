@@ -36,6 +36,7 @@
                             <th onclick="@(() => sortcolumn("Name", namebool))">Namn <i class="fas fa-sort"></i></th>
                             <th onclick="@(() => sortcolumn("Email", emailbool))">Email <i class="fas fa-sort"></i> </th>
                             <th onclick="@(() => sortcolumn("CreatedAt", createdat))">Anmäld <i class="fas fa-sort"></i></th>
+                            <th>Telefonnummer</th>
                             <th>Allergier</th>
                             <th>Radera</th>
 
@@ -51,6 +52,8 @@
                                     <td>@person.Name</td>
                                     <td>@person.Email</td>
                                     <td>@person.CreatedAt.ToShortDateString()</td>
+                                    <td>@person.PhoneNumber</td>
+
                                     @if (person.Rwsp != null)
                                     {
 
