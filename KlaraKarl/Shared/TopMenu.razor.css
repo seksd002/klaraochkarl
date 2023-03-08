@@ -52,7 +52,7 @@
 /*Small sized displays */
 @media only screen and (max-width: 577px) {
     .topmeny-flex-container {
-         margin-top: -40px;
+         margin-top: 10vw;
 
         margin-left:10vw;
         position: absolute;
@@ -67,13 +67,13 @@
     }
     .togglericon {
         display:block;
-        width:25vw;
+        width:20vw;
         height:auto;
         /*position:relative;*/
         /* margin-top:-140px;*/
         /*float:right;*/
         position: fixed;
-        margin-top:-15vw;
+        margin-top:-30vw;
         margin-left:71vw;
     }
     .divClass{
@@ -107,6 +107,7 @@
         right: 0;
         z-index: 1030;
     }
+   
     
  
 }
