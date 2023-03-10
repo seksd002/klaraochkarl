@@ -1,6 +1,15 @@
 @media only screen and (max-width: 577px) {
     .mycontainer {
         margin-top: 90px;
+
     }
+   
+    
+}
+.body {
+    background-image: url('/images/blomma2.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom right;
 }
 
