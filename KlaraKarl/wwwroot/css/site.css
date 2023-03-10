@@ -10,7 +10,8 @@ html, body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: bottom right;
-    background-size: 65% auto;
+    background-size: 50% auto;
+    background-color: #FAFAF2;
 }
 
 
@@ -82,4 +83,14 @@ a, .btn-link {
 
 tr:hover {
     background-color: lightgray;
+}
+
+@media only screen and (max-width: 577px) {
+    html, body {
+        background-image: url('/images/Mobilblomma.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: bottom;
+        background-size: 100% auto;
+    }
 }
