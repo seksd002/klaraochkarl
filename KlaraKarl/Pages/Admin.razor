@@ -60,7 +60,7 @@
                                         <td>@string.Join(", ", person.Rwsp.Allergies.Select(a => a.Allergy1))</td>
 
                                     }
-                                    <td><button class="btn btn-danger" @onclick="removeentity">Ta bort</button></td>
+                                    <td data-id="@person.Id"><button class="btn btn-danger" @onclick="() => removeentity(person)">Ta bort</button></td>
 
                                 </tr>
                             }
@@ -144,10 +144,10 @@
     
     updateview();
     }
-    private void removeentity ()
+    private void removeentity (Person person)
     {
 
-        service.Remove(this.persons.FirstOrDefault());
+        service.Remove(person);
         service.SaveChanges();
         updateview();
     }
