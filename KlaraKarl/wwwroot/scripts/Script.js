@@ -34,3 +34,41 @@ function hearts()
         }
     }, 1000);
 }
+
+function showBackground() {
+    var x = window.matchMedia("(min-width: 577px)")
+    if (x.matches) {
+        // Hämta body-elementet
+
+        var bodyElement = document.body;
+        bodyElement.style.backgroundImage = "";
+        // Ändra bakgrundsbilden på body-elementet till 'none'
+        bodyElement.style.backgroundImage = "/images/blomma2.png";
+    }
+    else {
+        var bodyElement = document.body;
+        // Ändra bakgrundsbilden på body-elementet till 'none'
+        bodyElement.style.backgroundImage = "none";
+
+    }
+
+}
+
+function handleBackgroundOnIndex()
+{
+    var x = window.matchMedia("(max-width: 577px)")
+    if (x.matches) {
+        // Hämta body-elementet
+
+        var bodyElement = document.body;
+        bodyElement.style.backgroundImage = "";
+        // Ändra bakgrundsbilden på body-elementet till 'none'
+        bodyElement.style.backgroundImage = "/images/Mobilblomma.png";
+    }
+    else {
+        var bodyElement = document.body;
+        bodyElement.style.backgroundImage = "";
+        bodyElement.style.backgroundImage = "/images/blomma2.png";
+
+    }
+}

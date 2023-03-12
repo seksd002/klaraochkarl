@@ -1,4 +1,5 @@
-﻿@page "/meromfesten"
+﻿@inject IJSRuntime js
+@page "/meromfesten"
 @inject NavigationManager NavigationManager; 
 <PageTitle>Mer om dagen</PageTitle>
 <div class="mycontainer container m-7">
@@ -22,6 +23,13 @@ att planera festen önskas anmälan senast fredagen den 11 augusti.</p>
 
 </div>
 @code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await js.InvokeVoidAsync("showBackground");
+        }
+    }
    
 }
 

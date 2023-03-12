@@ -248,4 +248,11 @@
         // Unsubscribe from the event when our component is disposed
         NavigationManager.LocationChanged -= LocationChanged;
     }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("showBackground");
+        }
+    }
 }
