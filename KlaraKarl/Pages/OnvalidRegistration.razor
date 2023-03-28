@@ -92,7 +92,7 @@
     public void sendmail()
     {
         MailService mailservice = new MailService();
-        mailservice.sendmail(person.Email, person.Name, "Bröllop", $"<h2>Tack för din anmälan!<h2><p>Det glädjer oss att du vill fira tillsammans med oss den 19 augusti.</p><p>Varmt välkommen! Kram från Klara och Karl</p><p>OBS detta mail går ej att svara på </p>");
+        mailservice.sendmail(person.Email, person.Name, "Bröllop", $"<h2>Tack för din anmälan!<h2><p>Det glädjer oss att du vill fira tillsammans med oss den 19 augusti.</p><p>Varmt välkommen! Kram från Klara och Karl</p><p>OBS! Tyvärr blev det lite tokigt i inbjudan. Kontaktuppgifterna till vår toastmaster David är david.sjoo@hotmail.com och 073-3867713. Det är honom ni kontaktar om ni vill uppträda eller hålla tal.</p><p>OBS detta mail går ej att svara på </p>");
         mailservice.sendmail("klara.skold@gmail.com", "Klara Sköld", "Ny   anmälan", $"<p>{person.Name} med {person.Email} har precis anmält sig.</p>");
     }
 
