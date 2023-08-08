@@ -16,8 +16,10 @@
     private void calcTime(DateTime date)
     {
         DateTime Start = DateTime.Now;
+        Console.WriteLine(DateTime.Now.ToString());
 
         DateTime EndDay = new DateTime(2023, 08, 19, 15, 00, 00);
+        Console.WriteLine(EndDay.ToString());
         TimeSpan Time = date - Start;
         Days = Time.Days.ToString();
         Minutes = Time.Minutes.ToString();
